@@ -1,0 +1,536 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html">
+<style type="text/css">
+		h1, h2, h3, h4, h5, h6 {
+			font-family : sans-serif;
+			color : white;
+			background-color : #21489e;
+			padding: 0.3em;
+		}
+		body {
+			font-family : verdana;
+		}
+		td, th {
+			padding: 0.5em;
+			text-align : center;
+			width : 18%;
+		}
+		th {
+			background-color : #A6CAF0;
+
+		}
+		th.column1, td.column1 {
+			text-align: left;
+			width : auto;
+		}
+		table {
+			width : 100%;
+		}
+		
+		.DRC_summary_header {							
+			padding-bottom : 0.1em;
+			border : 0px solid black;							
+			width: 100%;
+                        align: right;
+                        
+		}
+
+		.DRC_summary_header_col1, 
+		.DRC_summary_header_col2, 
+		.DRC_summary_header_col3
+		{
+			color : black;
+			font-size:150%;
+                        padding : 0em;
+			padding-top : 0.2em;
+			padding-bottom 0.2: 0em;
+			border : 0px solid black;
+			width : auto;
+			vertical-align: top;
+			font-weight: bold;				
+		}
+		
+		.DRC_summary_header_col1 	
+		{		                       
+			text-align: right;
+                        width: auto;	
+		}
+
+		.DRC_summary_header_col2 	
+		{		
+			text-align: center;	
+		}
+
+		.DRC_summary_header_col3 	
+		{		
+			text-align: left;	
+		}
+
+
+		
+		.header_holder
+		{
+		Width = 100%;
+		border = 0px solid green;
+		padding = 0;
+		}
+		
+		
+		
+		.front_matter, .front_matter_column1, .front_matter_column2, .front_matter_column3
+                {
+			left:0;
+			top:0;
+			padding-top : 0.1em;			
+			border : 0px solid black;
+			width : 100%;
+			vertical-align: top
+
+		}
+		.front_matter {	
+			
+			margin-top: 5px;
+ 			margin-left: 0px;					 			
+ 			horizontal-align: left;
+		}
+				
+		
+		.front_matter_column1 {
+			width : 10em;	
+			text-align  : right;
+			padding-right:0.1em;
+			
+		}
+		
+		.front_matter_column2 {
+                        width: 0.1em;
+			align: center;
+			text-align : center;
+			margin-right  : 0.1em;	
+			margin-left   : 0.1em;
+		}
+		.front_matter_column3 {
+			width         : auto;  
+			text-align    : left;	
+			margin-right  : 0.5em;				
+		}
+		
+		.total_column1, .total_column {
+			font-weight : bold;
+		}
+		.total_column1 {
+			text-align : right;
+		}
+		.warning, .error {
+			color : red;
+			font-weight : bold;
+		}
+		tr.onmouseout_odd {
+			background-color : #EEEEE0 
+		}
+		tr.onmouseout_even { 
+			background-color : #F3F3E3   
+		}
+		tr.onmouseover_odd, tr.onmouseover_even { 
+			background-color : lightYellow
+		} 
+		a:link, a:visited, .q a:link,.q a:active,.q {
+			color: #21489e; 
+		}
+		a:link.callback, a:visited.callback { 
+			color: #008000 
+		}
+		a:link.customize, a:visited.customize {
+			color: #C0C0C0;
+			position: absolute; 
+			right: 10px;
+		}	
+		p.contents_level1 {
+			font-weight : bold;
+			font-size : 110%;
+			margin : 0.5em;
+		}
+		p.contents_level2 {
+			position : relative;
+			left : 20px;
+			margin : 0.5em;
+		}
+	</style><script type="text/javascript">
+		function coordToMils(coord) {
+			var number = coord / 10000;
+			
+			if (number != number.toFixed(3))
+				number = number.toFixed(3);
+
+			return number + 'mil'
+		}
+
+		function coordToMM(coord) {
+			var number = 0.0254 * coord / 10000;
+			
+			if (number != number.toFixed(4))
+				number = number.toFixed(4);
+			
+			return number + 'mm'
+		}
+	
+		function convertCoord(coordNode, units) {
+			for (var i = 0; i < coordNode.childNodes.length; i++) {
+				coordNode.removeChild(coordNode.childNodes[i]);
+			}
+
+			var coord = coordNode.getAttribute('value');
+			if (coord != null) {
+				if (units == 'mm') {
+					textNode = document.createTextNode(coordToMM(coord));
+					coordNode.appendChild(textNode);
+				} else if (units == 'mil') {
+					textNode = document.createTextNode(coordToMils(coord));		
+					coordNode.appendChild(textNode);	
+				}
+			}
+		}
+	
+		function convertUnits(unitNode, units) {
+			for (var i = 0; i < unitNode.childNodes.length; i++) {
+				unitNode.removeChild(unitNode.childNodes[i]);		
+			}
+		
+			textNode = document.createTextNode(units); 
+			unitNode.appendChild(textNode);
+		}
+	
+		function changeUnits(radio_input, units) {
+			if (radio_input.checked) {
+			
+				var elements = document.getElementsByName('coordinate');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertCoord(elements[i], units);
+					}
+				}
+	
+				var elements = document.getElementsByName('units');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertUnits(elements[i], units);
+					}
+				}
+			}
+		}
+	</script><title>Design Rule Verification Report</title>
+</head>
+<body onload=""><img ALT="Altium" src="
+			file://C:\Users\Public\Documents\Altium\AD13\Templates\AD-rgb_logo_223x64.gif
+		"><a href="dxpprocess://Client:SetupPreferences?Server=PCB|PageName=Reports" class="customize"><acronym title="dxpprocess://Client:SetupPreferences?Server=PCB|PageName=Reports">customize</acronym></a><h1>Design Rule Verification Report</h1>
+<table class="header_holder">
+<td Style="width:70%">
+<table class="front_matter">
+<tr class="front_matter">
+<td class="front_matter_column1">Date</td>
+<td class="front_matter_column2">:</td>
+<td class="front_matter_column3">2013-12-23</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Time</td>
+<td class="front_matter_column2">:</td>
+<td class="front_matter_column3">1:05:21 PM</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Elapsed Time</td>
+<td class="front_matter_column2">:</td>
+<td class="front_matter_column3">00:00:01</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Filename</td>
+<td class="front_matter_column2">:</td>
+<td class="front_matter_column3"><a href="file:///G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc" class="file"><acronym title="G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc">G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc</acronym></a></td>
+</tr>
+</table>
+</td>
+<td Style="Width:30%">
+<table class="DRC_summary_header">
+<tr>
+<td class="DRC_summary_header_col1">Warnings</td>
+<td class="DRC_summary_header_col2">:</td>
+<td class="DRC_summary_header_col3">0</td></tr>
+<tr>
+<td class="DRC_summary_header_col1">Rule Violations</td>
+<td class="DRC_summary_header_col2">:</td>
+<td class="DRC_summary_header_col3" style="color : red">47</td></tr>
+</table>
+</td>
+</table>
+<hr><a name="ID0NYPFIECOAK1CZ41KCO1UFHV2G"><h2>Summary</h2></a><table>
+<tr>
+<th class="column1">Warnings</th>
+<th class="column2">Count</th>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">0</td>
+</tr>
+</table><br><table>
+<tr>
+<th class="column1">Rule Violations</th>
+<th class="column2">Count</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDFRCMGVPEEHLADZGXCFRKB3P4MD">Room GPIOExpander (Bounding Region = (985mil, 975mil, 2185mil, 2225mil) (InComponentClass('GPIOExpander'))</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#ID0TFXBRYK4GAAKGLGNLYLGXRXQ">Short-Circuit Constraint (Allowed=No) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#ID5DLRW2VV23MVDBCEZOZGZAUVPC">Un-Routed Net Constraint ( (All) )</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDIMY00TQ4BA2LFLH3UW24HD0AYL">Clearance Constraint (Gap=10mil) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDKATEJPHODXETP4SOVKJRQP3ULH">Power Plane Connect Rule(Relief Connect )(Expansion=20mil) (Conductor Width=10mil) (Air Gap=10mil) (Entries=4) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDVMGH1RREZHBLKVSB1QTSAT4GKC">Width Constraint (Min=10mil) (Max=50mil) (Preferred=10mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#ID40VRNA1JPFJ2FCEHLODIDWAIUF">Height Constraint (Min=0mil) (Max=1000mil) (Prefered=500mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDGE53BQRESZTUK3E1BOTZBZORB">Hole Size Constraint (Min=1mil) (Max=100mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDCFACV4I0DEXFKVMWWDYO2UW3MD">Hole To Hole Clearance (Gap=10mil) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDVES3QQZ41PTAJWL4TYGLYW5JBK">Minimum Solder Mask Sliver (Gap=10mil) (All),(All)</a></td>
+<td class="column2">16</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#ID544IVQWUGFSOICCERGT3PPYRUB">Silk To Solder Mask (Clearance=10mil) (IsPad),(All)</a></td>
+<td class="column2">20</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDCJIHMNF5LT2RJNEQ1KKY44LTTK">Silk to Silk (Clearance=10mil) (All),(All)</a></td>
+<td class="column2">11</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDPE4ZIONKRFQ5KN5MHQRWZRFAJI">Net Antennae (Tolerance=0mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">47</td>
+</tr>
+</table><br><hr><a name="IDVES3QQZ41PTAJWL4TYGLYW5JBK"><table>
+<tr>
+<th style="text-align : left" colspan="2" class="rule">Minimum Solder Mask Sliver (Gap=10mil) (All),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1543.5mil|Location2.X=1576.5mil|Location1.Y=1233.5mil|Location2.Y=1266.5mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1543.5mil|Location2.X=1576.5mil|Location1.Y=1233.5mil|Location2.Y=1266.5mil|Absolute=True">Via (-625mil,275mil) Top Layer to Bottom Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1576.473mil|Location2.X=1643.527mil|Location1.Y=1263.008mil|Location2.Y=1322.189mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1576.473mil|Location2.X=1643.527mil|Location1.Y=1263.008mil|Location2.Y=1322.189mil|Absolute=True">Pad R10-1(-575mil,317.599mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2023.5mil|Location2.X=2056.5mil|Location1.Y=1958.5mil|Location2.Y=1991.5mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2023.5mil|Location2.X=2056.5mil|Location1.Y=1958.5mil|Location2.Y=1991.5mil|Absolute=True">Via (-145mil,1000mil) Top Layer to Bottom Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2056.472mil|Location2.X=2123.528mil|Location1.Y=1983.008mil|Location2.Y=2042.189mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2056.472mil|Location2.X=2123.528mil|Location1.Y=1983.008mil|Location2.Y=2042.189mil|Absolute=True">Pad R3-1(-95mil,1037.599mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1923.5mil|Location2.X=1956.5mil|Location1.Y=1958.5mil|Location2.Y=1991.5mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1923.5mil|Location2.X=1956.5mil|Location1.Y=1958.5mil|Location2.Y=1991.5mil|Absolute=True">Via (-245mil,1000mil) Top Layer to Bottom Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1956.473mil|Location2.X=2023.527mil|Location1.Y=1983.008mil|Location2.Y=2042.189mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1956.473mil|Location2.X=2023.527mil|Location1.Y=1983.008mil|Location2.Y=2042.189mil|Absolute=True">Pad R2-1(-195mil,1037.599mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2023.5mil|Location2.X=2056.5mil|Location1.Y=1958.5mil|Location2.Y=1991.5mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2023.5mil|Location2.X=2056.5mil|Location1.Y=1958.5mil|Location2.Y=1991.5mil|Absolute=True">Via (-145mil,1000mil) Top Layer to Bottom Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1956.473mil|Location2.X=2023.527mil|Location1.Y=1983.008mil|Location2.Y=2042.189mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1956.473mil|Location2.X=2023.527mil|Location1.Y=1983.008mil|Location2.Y=2042.189mil|Absolute=True">Pad R2-1(-195mil,1037.599mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1923.5mil|Location2.X=1956.5mil|Location1.Y=1958.5mil|Location2.Y=1991.5mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1923.5mil|Location2.X=1956.5mil|Location1.Y=1958.5mil|Location2.Y=1991.5mil|Absolute=True">Via (-245mil,1000mil) Top Layer to Bottom Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1856.473mil|Location2.X=1923.527mil|Location1.Y=1983.008mil|Location2.Y=2042.189mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1856.473mil|Location2.X=1923.527mil|Location1.Y=1983.008mil|Location2.Y=2042.189mil|Absolute=True">Pad R1-1(-295mil,1037.599mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1693.5mil|Location2.X=1726.5mil|Location1.Y=1273.5mil|Location2.Y=1306.5mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1693.5mil|Location2.X=1726.5mil|Location1.Y=1273.5mil|Location2.Y=1306.5mil|Absolute=True">Via (-475mil,315mil) Top Layer to Bottom Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1668.008mil|Location2.X=1727.189mil|Location1.Y=1201.473mil|Location2.Y=1268.527mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1668.008mil|Location2.X=1727.189mil|Location1.Y=1201.473mil|Location2.Y=1268.527mil|Absolute=True">Pad R16-1(-487.401mil,260mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1633.5mil|Location2.X=1666.5mil|Location1.Y=1453.5mil|Location2.Y=1486.5mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1633.5mil|Location2.X=1666.5mil|Location1.Y=1453.5mil|Location2.Y=1486.5mil|Absolute=True">Via (-535mil,495mil) Top Layer to Bottom Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1567.811mil|Location2.X=1626.992mil|Location1.Y=1421.473mil|Location2.Y=1488.527mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1567.811mil|Location2.X=1626.992mil|Location1.Y=1421.473mil|Location2.Y=1488.527mil|Absolute=True">Pad R12-2(-587.598mil,480mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1543.5mil|Location2.X=1576.5mil|Location1.Y=1233.5mil|Location2.Y=1266.5mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1543.5mil|Location2.X=1576.5mil|Location1.Y=1233.5mil|Location2.Y=1266.5mil|Absolute=True">Via (-625mil,275mil) Top Layer to Bottom Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1476.473mil|Location2.X=1543.527mil|Location1.Y=1263.008mil|Location2.Y=1322.189mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1476.473mil|Location2.X=1543.527mil|Location1.Y=1263.008mil|Location2.Y=1322.189mil|Absolute=True">Pad R15-2(-675mil,317.598mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2023.5mil|Location2.X=2056.5mil|Location1.Y=1958.5mil|Location2.Y=1991.5mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2023.5mil|Location2.X=2056.5mil|Location1.Y=1958.5mil|Location2.Y=1991.5mil|Absolute=True">Via (-145mil,1000mil) Top Layer to Bottom Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2056.472mil|Location2.X=2123.528mil|Location1.Y=1907.811mil|Location2.Y=1966.992mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2056.472mil|Location2.X=2123.528mil|Location1.Y=1907.811mil|Location2.Y=1966.992mil|Absolute=True">Pad R7-2(-95mil,962.402mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1923.5mil|Location2.X=1956.5mil|Location1.Y=1958.5mil|Location2.Y=1991.5mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1923.5mil|Location2.X=1956.5mil|Location1.Y=1958.5mil|Location2.Y=1991.5mil|Absolute=True">Via (-245mil,1000mil) Top Layer to Bottom Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1956.473mil|Location2.X=2023.527mil|Location1.Y=1907.811mil|Location2.Y=1966.992mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1956.473mil|Location2.X=2023.527mil|Location1.Y=1907.811mil|Location2.Y=1966.992mil|Absolute=True">Pad R6-2(-195mil,962.402mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2023.5mil|Location2.X=2056.5mil|Location1.Y=1958.5mil|Location2.Y=1991.5mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2023.5mil|Location2.X=2056.5mil|Location1.Y=1958.5mil|Location2.Y=1991.5mil|Absolute=True">Via (-145mil,1000mil) Top Layer to Bottom Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1956.473mil|Location2.X=2023.527mil|Location1.Y=1907.811mil|Location2.Y=1966.992mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1956.473mil|Location2.X=2023.527mil|Location1.Y=1907.811mil|Location2.Y=1966.992mil|Absolute=True">Pad R6-2(-195mil,962.402mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1923.5mil|Location2.X=1956.5mil|Location1.Y=1958.5mil|Location2.Y=1991.5mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1923.5mil|Location2.X=1956.5mil|Location1.Y=1958.5mil|Location2.Y=1991.5mil|Absolute=True">Via (-245mil,1000mil) Top Layer to Bottom Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1856.473mil|Location2.X=1923.527mil|Location1.Y=1907.811mil|Location2.Y=1966.992mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1856.473mil|Location2.X=1923.527mil|Location1.Y=1907.811mil|Location2.Y=1966.992mil|Absolute=True">Pad R5-2(-295mil,962.402mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1718.5mil|Location2.X=1751.5mil|Location1.Y=1908.5mil|Location2.Y=1941.5mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1718.5mil|Location2.X=1751.5mil|Location1.Y=1908.5mil|Location2.Y=1941.5mil|Absolute=True">Via (-450mil,950mil) Top Layer to Bottom Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1719.189mil|Location2.X=1750.811mil|Location1.Y=1949.858mil|Location2.Y=2048.41mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1719.189mil|Location2.X=1750.811mil|Location1.Y=1949.858mil|Location2.Y=2048.41mil|Absolute=True">Pad U1-16(-450mil,1024.134mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1768.5mil|Location2.X=1801.5mil|Location1.Y=1908.5mil|Location2.Y=1941.5mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1768.5mil|Location2.X=1801.5mil|Location1.Y=1908.5mil|Location2.Y=1941.5mil|Absolute=True">Via (-400mil,950mil) Top Layer to Bottom Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1769.189mil|Location2.X=1800.811mil|Location1.Y=1949.858mil|Location2.Y=2048.41mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1769.189mil|Location2.X=1800.811mil|Location1.Y=1949.858mil|Location2.Y=2048.41mil|Absolute=True">Pad U1-15(-400mil,1024.134mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1113.5mil|Location2.X=1146.5mil|Location1.Y=1268.5mil|Location2.Y=1301.5mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1113.5mil|Location2.X=1146.5mil|Location1.Y=1268.5mil|Location2.Y=1301.5mil|Absolute=True">Via (-1055mil,310mil) Top Layer to Bottom Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1036.473mil|Location2.X=1103.527mil|Location1.Y=1251.473mil|Location2.Y=1318.527mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1036.473mil|Location2.X=1103.527mil|Location1.Y=1251.473mil|Location2.Y=1318.527mil|Absolute=True">Pad J2-2(-1115mil,310mil)  Multi-Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1113.5mil|Location2.X=1146.5mil|Location1.Y=1183.5mil|Location2.Y=1216.5mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1113.5mil|Location2.X=1146.5mil|Location1.Y=1183.5mil|Location2.Y=1216.5mil|Absolute=True">Via (-1055mil,225mil) Top Layer to Bottom Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1036.473mil|Location2.X=1103.527mil|Location1.Y=1151.473mil|Location2.Y=1218.527mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1036.473mil|Location2.X=1103.527mil|Location1.Y=1151.473mil|Location2.Y=1218.527mil|Absolute=True">Pad J2-1(-1115mil,210mil)  Multi-Layer</acronym></a></td>
+</tr>
+</table></a><a href="#top">Back to top</a><br><br><a name="ID544IVQWUGFSOICCERGT3PPYRUB"><table>
+<tr>
+<th style="text-align : left" colspan="2" class="rule">Silk To Solder Mask (Clearance=10mil) (IsPad),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1898.189mil|Location2.X=1931.811mil|Location1.Y=1188.504mil|Location2.Y=1198.504mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1898.189mil|Location2.X=1931.811mil|Location1.Y=1188.504mil|Location2.Y=1198.504mil|Absolute=True">Track (-281.811mil,218.504mil)(-258.189mil,218.504mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1934.622mil|Location2.X=2005.614mil|Location1.Y=1185.567mil|Location2.Y=1264.433mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1934.622mil|Location2.X=2005.614mil|Location1.Y=1185.567mil|Location2.Y=1264.433mil|Absolute=True">Pad R13-1(-214.882mil,250mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1898.189mil|Location2.X=1931.811mil|Location1.Y=1251.496mil|Location2.Y=1261.496mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1898.189mil|Location2.X=1931.811mil|Location1.Y=1251.496mil|Location2.Y=1261.496mil|Absolute=True">Track (-281.811mil,281.496mil)(-258.189mil,281.496mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1934.622mil|Location2.X=2005.614mil|Location1.Y=1185.567mil|Location2.Y=1264.433mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1934.622mil|Location2.X=2005.614mil|Location1.Y=1185.567mil|Location2.Y=1264.433mil|Absolute=True">Pad R13-1(-214.882mil,250mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1830mil|Location2.X=1999.951mil|Location1.Y=1110mil|Location2.Y=1189.981mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1830mil|Location2.X=1999.951mil|Location1.Y=1110mil|Location2.Y=1189.981mil|Absolute=True">Text "R13" (-345mil,145mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1934.622mil|Location2.X=2005.614mil|Location1.Y=1185.567mil|Location2.Y=1264.433mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1934.622mil|Location2.X=2005.614mil|Location1.Y=1185.567mil|Location2.Y=1264.433mil|Absolute=True">Pad R13-1(-214.882mil,250mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1898.189mil|Location2.X=1931.811mil|Location1.Y=1188.504mil|Location2.Y=1198.504mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1898.189mil|Location2.X=1931.811mil|Location1.Y=1188.504mil|Location2.Y=1198.504mil|Absolute=True">Track (-281.811mil,218.504mil)(-258.189mil,218.504mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1824.386mil|Location2.X=1895.378mil|Location1.Y=1185.567mil|Location2.Y=1264.433mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1824.386mil|Location2.X=1895.378mil|Location1.Y=1185.567mil|Location2.Y=1264.433mil|Absolute=True">Pad R13-2(-325.118mil,250mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1898.189mil|Location2.X=1931.811mil|Location1.Y=1251.496mil|Location2.Y=1261.496mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1898.189mil|Location2.X=1931.811mil|Location1.Y=1251.496mil|Location2.Y=1261.496mil|Absolute=True">Track (-281.811mil,281.496mil)(-258.189mil,281.496mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1824.386mil|Location2.X=1895.378mil|Location1.Y=1185.567mil|Location2.Y=1264.433mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1824.386mil|Location2.X=1895.378mil|Location1.Y=1185.567mil|Location2.Y=1264.433mil|Absolute=True">Pad R13-2(-325.118mil,250mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1830mil|Location2.X=1999.951mil|Location1.Y=1110mil|Location2.Y=1189.981mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1830mil|Location2.X=1999.951mil|Location1.Y=1110mil|Location2.Y=1189.981mil|Absolute=True">Text "R13" (-345mil,145mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1824.386mil|Location2.X=1895.378mil|Location1.Y=1185.567mil|Location2.Y=1264.433mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1824.386mil|Location2.X=1895.378mil|Location1.Y=1185.567mil|Location2.Y=1264.433mil|Absolute=True">Pad R13-2(-325.118mil,250mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1853.504mil|Location2.X=1863.504mil|Location1.Y=1708.189mil|Location2.Y=1741.811mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1853.504mil|Location2.X=1863.504mil|Location1.Y=1708.189mil|Location2.Y=1741.811mil|Absolute=True">Track (-326.496mil,738.189mil)(-326.496mil,761.811mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1850.567mil|Location2.X=1929.433mil|Location1.Y=1744.622mil|Location2.Y=1815.614mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1850.567mil|Location2.X=1929.433mil|Location1.Y=1744.622mil|Location2.Y=1815.614mil|Absolute=True">Pad R8-1(-295mil,805.118mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1916.496mil|Location2.X=1926.496mil|Location1.Y=1708.189mil|Location2.Y=1741.811mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1916.496mil|Location2.X=1926.496mil|Location1.Y=1708.189mil|Location2.Y=1741.811mil|Absolute=True">Track (-263.504mil,738.189mil)(-263.504mil,761.811mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1850.567mil|Location2.X=1929.433mil|Location1.Y=1744.622mil|Location2.Y=1815.614mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1850.567mil|Location2.X=1929.433mil|Location1.Y=1744.622mil|Location2.Y=1815.614mil|Absolute=True">Pad R8-1(-295mil,805.118mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1930.019mil|Location2.X=2010mil|Location1.Y=1670mil|Location2.Y=1789.968mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1930.019mil|Location2.X=2010mil|Location1.Y=1670mil|Location2.Y=1789.968mil|Absolute=True">Text "R8" (-185mil,705mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1850.567mil|Location2.X=1929.433mil|Location1.Y=1744.622mil|Location2.Y=1815.614mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1850.567mil|Location2.X=1929.433mil|Location1.Y=1744.622mil|Location2.Y=1815.614mil|Absolute=True">Pad R8-1(-295mil,805.118mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1853.504mil|Location2.X=1863.504mil|Location1.Y=1708.189mil|Location2.Y=1741.811mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1853.504mil|Location2.X=1863.504mil|Location1.Y=1708.189mil|Location2.Y=1741.811mil|Absolute=True">Track (-326.496mil,738.189mil)(-326.496mil,761.811mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1850.567mil|Location2.X=1929.433mil|Location1.Y=1634.386mil|Location2.Y=1705.378mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1850.567mil|Location2.X=1929.433mil|Location1.Y=1634.386mil|Location2.Y=1705.378mil|Absolute=True">Pad R8-2(-295mil,694.882mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1916.496mil|Location2.X=1926.496mil|Location1.Y=1708.189mil|Location2.Y=1741.811mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1916.496mil|Location2.X=1926.496mil|Location1.Y=1708.189mil|Location2.Y=1741.811mil|Absolute=True">Track (-263.504mil,738.189mil)(-263.504mil,761.811mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1850.567mil|Location2.X=1929.433mil|Location1.Y=1634.386mil|Location2.Y=1705.378mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1850.567mil|Location2.X=1929.433mil|Location1.Y=1634.386mil|Location2.Y=1705.378mil|Absolute=True">Pad R8-2(-295mil,694.882mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1930.019mil|Location2.X=2010mil|Location1.Y=1670mil|Location2.Y=1789.968mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1930.019mil|Location2.X=2010mil|Location1.Y=1670mil|Location2.Y=1789.968mil|Absolute=True">Text "R8" (-185mil,705mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1850.567mil|Location2.X=1929.433mil|Location1.Y=1634.386mil|Location2.Y=1705.378mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1850.567mil|Location2.X=1929.433mil|Location1.Y=1634.386mil|Location2.Y=1705.378mil|Absolute=True">Pad R8-2(-295mil,694.882mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1378.504mil|Location2.X=1388.504mil|Location1.Y=1308.189mil|Location2.Y=1341.811mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1378.504mil|Location2.X=1388.504mil|Location1.Y=1308.189mil|Location2.Y=1341.811mil|Absolute=True">Track (-801.496mil,338.189mil)(-801.496mil,361.811mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1375.567mil|Location2.X=1454.433mil|Location1.Y=1344.622mil|Location2.Y=1415.614mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1375.567mil|Location2.X=1454.433mil|Location1.Y=1344.622mil|Location2.Y=1415.614mil|Absolute=True">Pad R14-1(-770mil,405.118mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1441.496mil|Location2.X=1451.496mil|Location1.Y=1308.189mil|Location2.Y=1341.811mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1441.496mil|Location2.X=1451.496mil|Location1.Y=1308.189mil|Location2.Y=1341.811mil|Absolute=True">Track (-738.504mil,338.189mil)(-738.504mil,361.811mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1375.567mil|Location2.X=1454.433mil|Location1.Y=1344.622mil|Location2.Y=1415.614mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1375.567mil|Location2.X=1454.433mil|Location1.Y=1344.622mil|Location2.Y=1415.614mil|Absolute=True">Pad R14-1(-770mil,405.118mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1378.504mil|Location2.X=1388.504mil|Location1.Y=1308.189mil|Location2.Y=1341.811mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1378.504mil|Location2.X=1388.504mil|Location1.Y=1308.189mil|Location2.Y=1341.811mil|Absolute=True">Track (-801.496mil,338.189mil)(-801.496mil,361.811mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1375.567mil|Location2.X=1454.433mil|Location1.Y=1234.386mil|Location2.Y=1305.378mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1375.567mil|Location2.X=1454.433mil|Location1.Y=1234.386mil|Location2.Y=1305.378mil|Absolute=True">Pad R14-2(-770mil,294.882mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1441.496mil|Location2.X=1451.496mil|Location1.Y=1308.189mil|Location2.Y=1341.811mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1441.496mil|Location2.X=1451.496mil|Location1.Y=1308.189mil|Location2.Y=1341.811mil|Absolute=True">Track (-738.504mil,338.189mil)(-738.504mil,361.811mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1375.567mil|Location2.X=1454.433mil|Location1.Y=1234.386mil|Location2.Y=1305.378mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1375.567mil|Location2.X=1454.433mil|Location1.Y=1234.386mil|Location2.Y=1305.378mil|Absolute=True">Pad R14-2(-770mil,294.882mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2120mil|Location2.X=2179.987mil|Location1.Y=1870mil|Location2.Y=1949.981mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2120mil|Location2.X=2179.987mil|Location1.Y=1870mil|Location2.Y=1949.981mil|Absolute=True">Text "0" (-55mil,905mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2056.472mil|Location2.X=2123.528mil|Location1.Y=1907.811mil|Location2.Y=1966.992mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2056.472mil|Location2.X=2123.528mil|Location1.Y=1907.811mil|Location2.Y=1966.992mil|Absolute=True">Pad R7-2(-95mil,962.402mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2120mil|Location2.X=2179.987mil|Location1.Y=1870mil|Location2.Y=1949.981mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2120mil|Location2.X=2179.987mil|Location1.Y=1870mil|Location2.Y=1949.981mil|Absolute=True">Text "0" (-55mil,905mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2056.472mil|Location2.X=2123.528mil|Location1.Y=1833.008mil|Location2.Y=1892.189mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2056.472mil|Location2.X=2123.528mil|Location1.Y=1833.008mil|Location2.Y=1892.189mil|Absolute=True">Pad R7-1(-95mil,887.598mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1370mil|Location2.X=1469.974mil|Location1.Y=1515mil|Location2.Y=1594.981mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1370mil|Location2.X=1469.974mil|Location1.Y=1515mil|Location2.Y=1594.981mil|Absolute=True">Text "C1" (-805mil,550mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1369.189mil|Location2.X=1400.811mil|Location1.Y=1591.591mil|Location2.Y=1690.142mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1369.189mil|Location2.X=1400.811mil|Location1.Y=1591.591mil|Location2.Y=1690.142mil|Absolute=True">Pad U1-6(-800mil,665.866mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1370mil|Location2.X=1469.974mil|Location1.Y=1515mil|Location2.Y=1594.981mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1370mil|Location2.X=1469.974mil|Location1.Y=1515mil|Location2.Y=1594.981mil|Absolute=True">Text "C1" (-805mil,550mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1419.189mil|Location2.X=1450.811mil|Location1.Y=1591.591mil|Location2.Y=1690.142mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1419.189mil|Location2.X=1450.811mil|Location1.Y=1591.591mil|Location2.Y=1690.142mil|Absolute=True">Pad U1-7(-750mil,665.866mil)  Top Layer</acronym></a></td>
+</tr>
+</table></a><a href="#top">Back to top</a><br><br><a name="IDCJIHMNF5LT2RJNEQ1KKY44LTTK"><table>
+<tr>
+<th style="text-align : left" colspan="2" class="rule">Silk to Silk (Clearance=10mil) (All),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1830mil|Location2.X=1999.951mil|Location1.Y=1110mil|Location2.Y=1189.981mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1830mil|Location2.X=1999.951mil|Location1.Y=1110mil|Location2.Y=1189.981mil|Absolute=True">Text "R13" (-345mil,145mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1898.189mil|Location2.X=1931.811mil|Location1.Y=1188.504mil|Location2.Y=1198.504mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1898.189mil|Location2.X=1931.811mil|Location1.Y=1188.504mil|Location2.Y=1198.504mil|Absolute=True">Track (-281.811mil,218.504mil)(-258.189mil,218.504mil)  Top Overlay</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1930.019mil|Location2.X=2010mil|Location1.Y=1670mil|Location2.Y=1789.968mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1930.019mil|Location2.X=2010mil|Location1.Y=1670mil|Location2.Y=1789.968mil|Absolute=True">Text "R8" (-185mil,705mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1916.496mil|Location2.X=1926.496mil|Location1.Y=1708.189mil|Location2.Y=1741.811mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1916.496mil|Location2.X=1926.496mil|Location1.Y=1708.189mil|Location2.Y=1741.811mil|Absolute=True">Track (-263.504mil,738.189mil)(-263.504mil,761.811mil)  Top Overlay</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1470.019mil|Location2.X=1550mil|Location1.Y=1090mil|Location2.Y=1259.951mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1470.019mil|Location2.X=1550mil|Location1.Y=1090mil|Location2.Y=1259.951mil|Absolute=True">Text "R15" (-645mil,125mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1095mil|Location2.X=1905mil|Location1.Y=1100mil|Location2.Y=1110mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1095mil|Location2.X=1905mil|Location1.Y=1100mil|Location2.Y=1110mil|Absolute=True">Track (-1085mil,130mil)(-285mil,130mil)  Top Overlay</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1645mil|Location2.X=1814.951mil|Location1.Y=1115mil|Location2.Y=1194.981mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1645mil|Location2.X=1814.951mil|Location1.Y=1115mil|Location2.Y=1194.981mil|Absolute=True">Text "R16" (-530mil,150mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1095mil|Location2.X=1905mil|Location1.Y=1100mil|Location2.Y=1110mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1095mil|Location2.X=1905mil|Location1.Y=1100mil|Location2.Y=1110mil|Absolute=True">Track (-1085mil,130mil)(-285mil,130mil)  Top Overlay</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1830mil|Location2.X=1999.951mil|Location1.Y=1110mil|Location2.Y=1189.981mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1830mil|Location2.X=1999.951mil|Location1.Y=1110mil|Location2.Y=1189.981mil|Absolute=True">Text "R13" (-345mil,145mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1095mil|Location2.X=1905mil|Location1.Y=1100mil|Location2.Y=1110mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1095mil|Location2.X=1905mil|Location1.Y=1100mil|Location2.Y=1110mil|Absolute=True">Track (-1085mil,130mil)(-285mil,130mil)  Top Overlay</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1575.019mil|Location2.X=1655mil|Location1.Y=1090mil|Location2.Y=1259.951mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1575.019mil|Location2.X=1655mil|Location1.Y=1090mil|Location2.Y=1259.951mil|Absolute=True">Text "R10" (-540mil,125mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1095mil|Location2.X=1905mil|Location1.Y=1100mil|Location2.Y=1110mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1095mil|Location2.X=1905mil|Location1.Y=1100mil|Location2.Y=1110mil|Absolute=True">Track (-1085mil,130mil)(-285mil,130mil)  Top Overlay</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1010.019mil|Location2.X=1090mil|Location1.Y=995mil|Location2.Y=1114.968mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1010.019mil|Location2.X=1090mil|Location1.Y=995mil|Location2.Y=1114.968mil|Absolute=True">Text "J4" (-1105mil,30mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1095mil|Location2.X=1105mil|Location1.Y=1000mil|Location2.Y=1110mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1095mil|Location2.X=1105mil|Location1.Y=1000mil|Location2.Y=1110mil|Absolute=True">Track (-1085mil,30mil)(-1085mil,130mil)  Top Overlay</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1830mil|Location2.X=1999.951mil|Location1.Y=1110mil|Location2.Y=1189.981mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1830mil|Location2.X=1999.951mil|Location1.Y=1110mil|Location2.Y=1189.981mil|Absolute=True">Text "R13" (-345mil,145mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1895mil|Location2.X=1905mil|Location1.Y=1000mil|Location2.Y=1110mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1895mil|Location2.X=1905mil|Location1.Y=1000mil|Location2.Y=1110mil|Absolute=True">Track (-285mil,30mil)(-285mil,130mil)  Top Overlay</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1910mil|Location2.X=2009.974mil|Location1.Y=995mil|Location2.Y=1074.981mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1910mil|Location2.X=2009.974mil|Location1.Y=995mil|Location2.Y=1074.981mil|Absolute=True">Text "J1" (-265mil,30mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1895mil|Location2.X=1905mil|Location1.Y=1000mil|Location2.Y=1110mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1895mil|Location2.X=1905mil|Location1.Y=1000mil|Location2.Y=1110mil|Absolute=True">Track (-285mil,30mil)(-285mil,130mil)  Top Overlay</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1645mil|Location2.X=1814.951mil|Location1.Y=1115mil|Location2.Y=1194.981mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1645mil|Location2.X=1814.951mil|Location1.Y=1115mil|Location2.Y=1194.981mil|Absolute=True">Text "R16" (-530mil,150mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1575.019mil|Location2.X=1655mil|Location1.Y=1090mil|Location2.Y=1259.951mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1575.019mil|Location2.X=1655mil|Location1.Y=1090mil|Location2.Y=1259.951mil|Absolute=True">Text "R10" (-540mil,125mil)  Top Overlay</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1365.239mil|Location2.X=2125mil|Location1.Y=1875.006mil|Location2.Y=1974.981mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1365.239mil|Location2.X=2125mil|Location1.Y=1875.006mil|Location2.Y=1974.981mil|Absolute=True">Text "GPIO Expander" (-70mil,930mil)  Bottom Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1695.11mil|Location2.X=2055mil|Location1.Y=1800mil|Location2.Y=1879.981mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1695.11mil|Location2.X=2055mil|Location1.Y=1800mil|Location2.Y=1879.981mil|Absolute=True">Text "JFB R3" (-140mil,835mil)  Bottom Overlay</acronym></a></td>
+</tr>
+</table></a><a href="#top">Back to top</a><br><br></body>
+</html>

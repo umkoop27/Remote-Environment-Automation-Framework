@@ -1,0 +1,14 @@
+Removed Pin From Net: NetName=AIN1 Pin=Ca4-2
+Removed Pin From Net: NetName=PWM1 Pin=Cp1-1
+Removed Pin From Net: NetName=AIN1 Pin=Ra2-2
+Removed Pin From Net: NetName=AIN1 Pin=Raf-1
+Removed Pin From Net: NetName=PWM1 Pin=Rp1-1
+Removed Pin From Net: NetName=AIN1 Pin=Ua-1
+Added Pin To Net: NetName=NetCa4_2 Pin=Ca4-2
+Added Pin To Net: NetName=NetCa4_2 Pin=Ra2-2
+Added Pin To Net: NetName=NetCa4_2 Pin=Raf-1
+Added Pin To Net: NetName=NetCa4_2 Pin=Ua-1
+Added Net: Name=NetCa4_2
+Added Pin To Net: NetName=NetCp1_1 Pin=Cp1-1
+Added Pin To Net: NetName=NetCp1_1 Pin=Rp1-1
+Added Net: Name=NetCp1_1

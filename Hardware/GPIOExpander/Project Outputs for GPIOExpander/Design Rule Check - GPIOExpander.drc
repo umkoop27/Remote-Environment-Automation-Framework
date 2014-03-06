@@ -1,0 +1,141 @@
+Protel Design System Design Rule Check
+PCB File : G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\GPIOExpander\GPIOExpander.PcbDoc
+Date     : 2013-12-23
+Time     : 1:05:21 PM
+
+Processing Rule : Room GPIOExpander (Bounding Region = (985mil, 975mil, 2185mil, 2225mil) (InComponentClass('GPIOExpander'))
+Rule Violations :0
+
+Processing Rule : Short-Circuit Constraint (Allowed=No) (All),(All)
+Rule Violations :0
+
+Processing Rule : Un-Routed Net Constraint ( (All) )
+Rule Violations :0
+
+Processing Rule : Clearance Constraint (Gap=10mil) (All),(All)
+Rule Violations :0
+
+Processing Rule : Power Plane Connect Rule(Relief Connect )(Expansion=20mil) (Conductor Width=10mil) (Air Gap=10mil) (Entries=4) (All)
+Rule Violations :0
+
+Processing Rule : Width Constraint (Min=10mil) (Max=50mil) (Preferred=10mil) (All)
+Rule Violations :0
+
+Processing Rule : Height Constraint (Min=0mil) (Max=1000mil) (Prefered=500mil) (All)
+Rule Violations :0
+
+Processing Rule : Hole Size Constraint (Min=1mil) (Max=100mil) (All)
+Rule Violations :0
+
+Processing Rule : Hole To Hole Clearance (Gap=10mil) (All),(All)
+Rule Violations :0
+
+Processing Rule : Minimum Solder Mask Sliver (Gap=10mil) (All),(All)
+   Violation between Via (-625mil,275mil) Top Layer to Bottom Layer and 
+                     Pad R10-1(-575mil,317.599mil)  Top Layer
+   Violation between Via (-145mil,1000mil) Top Layer to Bottom Layer and 
+                     Pad R3-1(-95mil,1037.599mil)  Top Layer
+   Violation between Via (-245mil,1000mil) Top Layer to Bottom Layer and 
+                     Pad R2-1(-195mil,1037.599mil)  Top Layer
+   Violation between Via (-145mil,1000mil) Top Layer to Bottom Layer and 
+                     Pad R2-1(-195mil,1037.599mil)  Top Layer
+   Violation between Via (-245mil,1000mil) Top Layer to Bottom Layer and 
+                     Pad R1-1(-295mil,1037.599mil)  Top Layer
+   Violation between Via (-475mil,315mil) Top Layer to Bottom Layer and 
+                     Pad R16-1(-487.401mil,260mil)  Top Layer
+   Violation between Via (-535mil,495mil) Top Layer to Bottom Layer and 
+                     Pad R12-2(-587.598mil,480mil)  Top Layer
+   Violation between Via (-625mil,275mil) Top Layer to Bottom Layer and 
+                     Pad R15-2(-675mil,317.598mil)  Top Layer
+   Violation between Via (-145mil,1000mil) Top Layer to Bottom Layer and 
+                     Pad R7-2(-95mil,962.402mil)  Top Layer
+   Violation between Via (-245mil,1000mil) Top Layer to Bottom Layer and 
+                     Pad R6-2(-195mil,962.402mil)  Top Layer
+   Violation between Via (-145mil,1000mil) Top Layer to Bottom Layer and 
+                     Pad R6-2(-195mil,962.402mil)  Top Layer
+   Violation between Via (-245mil,1000mil) Top Layer to Bottom Layer and 
+                     Pad R5-2(-295mil,962.402mil)  Top Layer
+   Violation between Via (-450mil,950mil) Top Layer to Bottom Layer and 
+                     Pad U1-16(-450mil,1024.134mil)  Top Layer
+   Violation between Via (-400mil,950mil) Top Layer to Bottom Layer and 
+                     Pad U1-15(-400mil,1024.134mil)  Top Layer
+   Violation between Via (-1055mil,310mil) Top Layer to Bottom Layer and 
+                     Pad J2-2(-1115mil,310mil)  Multi-Layer
+   Violation between Via (-1055mil,225mil) Top Layer to Bottom Layer and 
+                     Pad J2-1(-1115mil,210mil)  Multi-Layer
+Rule Violations :16
+
+Processing Rule : Silk To Solder Mask (Clearance=10mil) (IsPad),(All)
+   Violation between Track (-281.811mil,218.504mil)(-258.189mil,218.504mil)  Top Overlay and 
+                     Pad R13-1(-214.882mil,250mil)  Top Layer
+   Violation between Track (-281.811mil,281.496mil)(-258.189mil,281.496mil)  Top Overlay and 
+                     Pad R13-1(-214.882mil,250mil)  Top Layer
+   Violation between Text "R13" (-345mil,145mil)  Top Overlay and 
+                     Pad R13-1(-214.882mil,250mil)  Top Layer
+   Violation between Track (-281.811mil,218.504mil)(-258.189mil,218.504mil)  Top Overlay and 
+                     Pad R13-2(-325.118mil,250mil)  Top Layer
+   Violation between Track (-281.811mil,281.496mil)(-258.189mil,281.496mil)  Top Overlay and 
+                     Pad R13-2(-325.118mil,250mil)  Top Layer
+   Violation between Text "R13" (-345mil,145mil)  Top Overlay and 
+                     Pad R13-2(-325.118mil,250mil)  Top Layer
+   Violation between Track (-326.496mil,738.189mil)(-326.496mil,761.811mil)  Top Overlay and 
+                     Pad R8-1(-295mil,805.118mil)  Top Layer
+   Violation between Track (-263.504mil,738.189mil)(-263.504mil,761.811mil)  Top Overlay and 
+                     Pad R8-1(-295mil,805.118mil)  Top Layer
+   Violation between Text "R8" (-185mil,705mil)  Top Overlay and 
+                     Pad R8-1(-295mil,805.118mil)  Top Layer
+   Violation between Track (-326.496mil,738.189mil)(-326.496mil,761.811mil)  Top Overlay and 
+                     Pad R8-2(-295mil,694.882mil)  Top Layer
+   Violation between Track (-263.504mil,738.189mil)(-263.504mil,761.811mil)  Top Overlay and 
+                     Pad R8-2(-295mil,694.882mil)  Top Layer
+   Violation between Text "R8" (-185mil,705mil)  Top Overlay and 
+                     Pad R8-2(-295mil,694.882mil)  Top Layer
+   Violation between Track (-801.496mil,338.189mil)(-801.496mil,361.811mil)  Top Overlay and 
+                     Pad R14-1(-770mil,405.118mil)  Top Layer
+   Violation between Track (-738.504mil,338.189mil)(-738.504mil,361.811mil)  Top Overlay and 
+                     Pad R14-1(-770mil,405.118mil)  Top Layer
+   Violation between Track (-801.496mil,338.189mil)(-801.496mil,361.811mil)  Top Overlay and 
+                     Pad R14-2(-770mil,294.882mil)  Top Layer
+   Violation between Track (-738.504mil,338.189mil)(-738.504mil,361.811mil)  Top Overlay and 
+                     Pad R14-2(-770mil,294.882mil)  Top Layer
+   Violation between Text "0" (-55mil,905mil)  Top Overlay and 
+                     Pad R7-2(-95mil,962.402mil)  Top Layer
+   Violation between Text "0" (-55mil,905mil)  Top Overlay and 
+                     Pad R7-1(-95mil,887.598mil)  Top Layer
+   Violation between Text "C1" (-805mil,550mil)  Top Overlay and 
+                     Pad U1-6(-800mil,665.866mil)  Top Layer
+   Violation between Text "C1" (-805mil,550mil)  Top Overlay and 
+                     Pad U1-7(-750mil,665.866mil)  Top Layer
+Rule Violations :20
+
+Processing Rule : Silk to Silk (Clearance=10mil) (All),(All)
+   Violation between Text "R13" (-345mil,145mil)  Top Overlay and 
+                     Track (-281.811mil,218.504mil)(-258.189mil,218.504mil)  Top Overlay
+   Violation between Text "R8" (-185mil,705mil)  Top Overlay and 
+                     Track (-263.504mil,738.189mil)(-263.504mil,761.811mil)  Top Overlay
+   Violation between Text "R15" (-645mil,125mil)  Top Overlay and 
+                     Track (-1085mil,130mil)(-285mil,130mil)  Top Overlay
+   Violation between Text "R16" (-530mil,150mil)  Top Overlay and 
+                     Track (-1085mil,130mil)(-285mil,130mil)  Top Overlay
+   Violation between Text "R13" (-345mil,145mil)  Top Overlay and 
+                     Track (-1085mil,130mil)(-285mil,130mil)  Top Overlay
+   Violation between Text "R10" (-540mil,125mil)  Top Overlay and 
+                     Track (-1085mil,130mil)(-285mil,130mil)  Top Overlay
+   Violation between Text "J4" (-1105mil,30mil)  Top Overlay and 
+                     Track (-1085mil,30mil)(-1085mil,130mil)  Top Overlay
+   Violation between Text "R13" (-345mil,145mil)  Top Overlay and 
+                     Track (-285mil,30mil)(-285mil,130mil)  Top Overlay
+   Violation between Text "J1" (-265mil,30mil)  Top Overlay and 
+                     Track (-285mil,30mil)(-285mil,130mil)  Top Overlay
+   Violation between Text "R16" (-530mil,150mil)  Top Overlay and 
+                     Text "R10" (-540mil,125mil)  Top Overlay
+   Violation between Text "GPIO Expander" (-70mil,930mil)  Bottom Overlay and 
+                     Text "JFB R3" (-140mil,835mil)  Bottom Overlay
+Rule Violations :11
+
+Processing Rule : Net Antennae (Tolerance=0mil) (All)
+Rule Violations :0
+
+
+Violations Detected : 47
+Time Elapsed        : 00:00:01

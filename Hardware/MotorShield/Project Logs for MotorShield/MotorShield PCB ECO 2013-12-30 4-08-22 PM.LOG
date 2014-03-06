@@ -1,0 +1,5 @@
+Change Component Designator: OldDesignator=2 NewDesignator=J5
+Change Net Name : Old Net Name=PWM1 New Net Name=C\S\
+Added Member To Class: ClassName=MotorShield Member=Component J1 ArduIMU_Connector
+Added Member To Class: ClassName=MotorShield Member=Component J2 2P_TBlock
+Added Member To Class: ClassName=MotorShield Member=Component J3 3P_TBlock

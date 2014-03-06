@@ -1,0 +1,10 @@
+Output: Report Single Pin Nets
+Type  : SinglePinNetReporter
+From  : Variant [[No Variations]] of Project [MotorShield.PrjPCB]
+   Generated File[MotorShield.REP]
+
+
+Files Generated   : 1
+Documents Printed : 0
+
+Finished Output Generation At 10:07:42 PM On 2013-12-29

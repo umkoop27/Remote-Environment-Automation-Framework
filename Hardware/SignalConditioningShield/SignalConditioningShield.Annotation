@@ -1,0 +1,14 @@
+[DesignatorManager]
+LogicalDesignator0=Ca3
+LogicalPartID0=1
+DocumentName0=SignalConditioningShield.SchDoc
+ChannelName0=SignalConditioningShield
+UniqueID0=\RIARPDET
+PhysicalDesignator0=Ca3
+PhysicalDesignatorLocked0=1
+
+[SheetNumberManager]
+SheetNumberOrder=Display Order
+SheetNumberMethod=Increasing
+
+

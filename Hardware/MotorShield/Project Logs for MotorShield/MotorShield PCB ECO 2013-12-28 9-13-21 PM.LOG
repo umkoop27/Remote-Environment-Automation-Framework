@@ -1,0 +1,3 @@
+Change Component DesignItemId : Designator=U? Old DesignItemId=L293DD New DesignItemId=SN74ALVCH16269DGGR
+Change Component Footprint: Designator=U? Old Footprint=SO20_N New Footprint=DGG056_N
+Change Component Comment : Designator=U? Old Comment=L293DD New Comment=SN74ALVCH16269DGGR

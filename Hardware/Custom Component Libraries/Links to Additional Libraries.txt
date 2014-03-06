@@ -1,0 +1,5 @@
+Additonal Libraries placed in: C:\Users\Public\Documents\Altium\AD13\Library
+
+
+RRutledge Libraries
+http://code.google.com/p/altium-designer-addons/wiki/Libs_RRutledge

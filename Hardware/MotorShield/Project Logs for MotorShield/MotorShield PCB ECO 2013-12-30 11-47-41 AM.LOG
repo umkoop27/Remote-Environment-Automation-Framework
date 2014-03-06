@@ -1,0 +1,9 @@
+Added Component: Designator=J2(2P_TBlock)
+Added Component: Designator=J3(3P_TBlock)
+Added Pin To Net: NetName=NetD1_3 Pin=J2-1
+Added Pin To Net: NetName=NetD2_3 Pin=J2-2
+Added Pin To Net: NetName=COMMON Pin=J3-1
+Added Pin To Net: NetName=NetD3_3 Pin=J3-2
+Added Pin To Net: NetName=NetD4_3 Pin=J3-3
+Added Member To Class: ClassName=MotorShield Member=Component J2 2P_TBlock
+Added Member To Class: ClassName=MotorShield Member=Component J3 3P_TBlock

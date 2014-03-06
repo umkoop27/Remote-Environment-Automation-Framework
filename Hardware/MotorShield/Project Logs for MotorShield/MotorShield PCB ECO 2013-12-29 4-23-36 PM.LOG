@@ -1,0 +1,3 @@
+Change Component DesignItemId : Designator=U? Old DesignItemId=SN74ALVCH16269DGGR New DesignItemId=MAX6966
+Change Component Footprint: Designator=U? Old Footprint=DGG056_N New Footprint=QSOP-QR16_L
+Change Component Comment : Designator=U? Old Comment=SN74ALVCH16269DGGR New Comment=MAX6966

@@ -1,0 +1,134 @@
+Protel Design System Design Rule Check
+PCB File : G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc
+Date     : 2013-12-30
+Time     : 4:13:36 PM
+
+Processing Rule : Net Antennae (Tolerance=0mil) (All)
+Rule Violations :0
+
+Processing Rule : Silk to Silk (Clearance=10mil) (All),(All)
+   Violation between Text "-" (-245mil,800mil)  Bottom Overlay and 
+                     Arc (-265.311mil,830mil)  Bottom Overlay
+   Violation between Text "+" (-470mil,800mil)  Bottom Overlay and 
+                     Arc (-490mil,830mil)  Bottom Overlay
+   Violation between Text "C1" (-195mil,655mil)  Top Overlay and 
+                     Track (-293.425mil,635mil)(-180mil,635mil)  Top Overlay
+   Violation between Text "+" (-470mil,800mil)  Bottom Overlay and 
+                     Track (-449.689mil,830mil)(-384.689mil,830mil)  Bottom Overlay
+   Violation between Text "-" (-245mil,800mil)  Bottom Overlay and 
+                     Track (-345mil,830mil)(-305mil,830mil)  Bottom Overlay
+   Violation between Text "C1" (-195mil,655mil)  Top Overlay and 
+                     Text "J1" (-265mil,755mil)  Top Overlay
+   Violation between Text "C4" (-945mil,30mil)  Top Overlay and 
+                     Text "C5" (-865mil,30mil)  Top Overlay
+   Violation between Text "C3" (-1025mil,30mil)  Top Overlay and 
+                     Text "C4" (-945mil,30mil)  Top Overlay
+   Violation between Text "C3" (-1025mil,30mil)  Top Overlay and 
+                     Text "C2" (-1105mil,30mil)  Top Overlay
+Rule Violations :9
+
+Processing Rule : Silk To Solder Mask (Clearance=10mil) (IsPad),(All)
+   Violation between Track (-825mil,0mil)(-825mil,5mil)  Top Overlay and 
+                     Pad C2-2(-815mil,42.598mil)  Top Layer
+   Violation between Text "U2" (-295mil,245mil)  Top Overlay and 
+                     Pad U2-9(-333.464mil,322.5mil)  Top Layer
+   Violation between Track (-385.63mil,311.575mil)(-385.63mil,508.425mil)  Top Overlay and 
+                     Pad U2-9(-333.464mil,322.5mil)  Top Layer
+   Violation between Track (-385.63mil,311.575mil)(-385.63mil,508.425mil)  Top Overlay and 
+                     Pad U2-10(-333.464mil,347.5mil)  Top Layer
+   Violation between Track (-385.63mil,311.575mil)(-385.63mil,508.425mil)  Top Overlay and 
+                     Pad U2-11(-333.464mil,372.5mil)  Top Layer
+   Violation between Track (-385.63mil,311.575mil)(-385.63mil,508.425mil)  Top Overlay and 
+                     Pad U2-12(-333.464mil,397.5mil)  Top Layer
+   Violation between Track (-385.63mil,311.575mil)(-385.63mil,508.425mil)  Top Overlay and 
+                     Pad U2-13(-333.464mil,422.5mil)  Top Layer
+   Violation between Track (-385.63mil,311.575mil)(-385.63mil,508.425mil)  Top Overlay and 
+                     Pad U2-14(-333.464mil,447.5mil)  Top Layer
+   Violation between Track (-385.63mil,311.575mil)(-385.63mil,508.425mil)  Top Overlay and 
+                     Pad U2-15(-333.464mil,472.5mil)  Top Layer
+   Violation between Track (-385.63mil,311.575mil)(-385.63mil,508.425mil)  Top Overlay and 
+                     Pad U2-16(-333.464mil,497.5mil)  Top Layer
+   Violation between Track (-464.37mil,311.575mil)(-464.37mil,508.425mil)  Top Overlay and 
+                     Pad U2-8(-516.535mil,322.5mil)  Top Layer
+   Violation between Track (-464.37mil,311.575mil)(-464.37mil,508.425mil)  Top Overlay and 
+                     Pad U2-7(-516.535mil,347.5mil)  Top Layer
+   Violation between Track (-464.37mil,311.575mil)(-464.37mil,508.425mil)  Top Overlay and 
+                     Pad U2-6(-516.535mil,372.5mil)  Top Layer
+   Violation between Track (-464.37mil,311.575mil)(-464.37mil,508.425mil)  Top Overlay and 
+                     Pad U2-5(-516.535mil,397.5mil)  Top Layer
+   Violation between Track (-464.37mil,311.575mil)(-464.37mil,508.425mil)  Top Overlay and 
+                     Pad U2-4(-516.535mil,422.5mil)  Top Layer
+   Violation between Track (-464.37mil,311.575mil)(-464.37mil,508.425mil)  Top Overlay and 
+                     Pad U2-3(-516.535mil,447.5mil)  Top Layer
+   Violation between Track (-464.37mil,311.575mil)(-464.37mil,508.425mil)  Top Overlay and 
+                     Pad U2-2(-516.535mil,472.5mil)  Top Layer
+   Violation between Track (-464.37mil,311.575mil)(-464.37mil,508.425mil)  Top Overlay and 
+                     Pad U2-1(-516.535mil,497.5mil)  Top Layer
+   Violation between Text "!CS" (-165mil,535mil)  Bottom Overlay and 
+                     Pad Free-6(-305mil,560mil)  Multi-Layer
+   Violation between Track (-312.913mil,855.591mil)(-312.913mil,966.811mil)  Top Overlay and 
+                     Pad J4-3(-305.039mil,1033.74mil)  Multi-Layer
+   Violation between Track (-312.913mil,1100.669mil)(-312.913mil,1427.441mil)  Top Overlay and 
+                     Pad J4-3(-305.039mil,1033.74mil)  Multi-Layer
+   Violation between Track (-312.913mil,855.591mil)(73.898mil,855.591mil)  Top Overlay and 
+                     Pad J4-1(-120mil,915.63mil)  Multi-Layer
+Rule Violations :22
+
+Processing Rule : Minimum Solder Mask Sliver (Gap=10mil) (All),(All)
+   Violation between Pad U2-10(-333.464mil,347.5mil)  Top Layer and 
+                     Pad U2-9(-333.464mil,322.5mil)  Top Layer
+   Violation between Pad U2-11(-333.464mil,372.5mil)  Top Layer and 
+                     Pad U2-10(-333.464mil,347.5mil)  Top Layer
+   Violation between Pad U2-12(-333.464mil,397.5mil)  Top Layer and 
+                     Pad U2-11(-333.464mil,372.5mil)  Top Layer
+   Violation between Pad U2-13(-333.464mil,422.5mil)  Top Layer and 
+                     Pad U2-12(-333.464mil,397.5mil)  Top Layer
+   Violation between Pad U2-14(-333.464mil,447.5mil)  Top Layer and 
+                     Pad U2-13(-333.464mil,422.5mil)  Top Layer
+   Violation between Pad U2-15(-333.464mil,472.5mil)  Top Layer and 
+                     Pad U2-14(-333.464mil,447.5mil)  Top Layer
+   Violation between Pad U2-16(-333.464mil,497.5mil)  Top Layer and 
+                     Pad U2-15(-333.464mil,472.5mil)  Top Layer
+   Violation between Pad U2-7(-516.535mil,347.5mil)  Top Layer and 
+                     Pad U2-8(-516.535mil,322.5mil)  Top Layer
+   Violation between Pad U2-6(-516.535mil,372.5mil)  Top Layer and 
+                     Pad U2-7(-516.535mil,347.5mil)  Top Layer
+   Violation between Pad U2-5(-516.535mil,397.5mil)  Top Layer and 
+                     Pad U2-6(-516.535mil,372.5mil)  Top Layer
+   Violation between Pad U2-4(-516.535mil,422.5mil)  Top Layer and 
+                     Pad U2-5(-516.535mil,397.5mil)  Top Layer
+   Violation between Pad U2-3(-516.535mil,447.5mil)  Top Layer and 
+                     Pad U2-4(-516.535mil,422.5mil)  Top Layer
+   Violation between Pad U2-2(-516.535mil,472.5mil)  Top Layer and 
+                     Pad U2-3(-516.535mil,447.5mil)  Top Layer
+   Violation between Pad U2-1(-516.535mil,497.5mil)  Top Layer and 
+                     Pad U2-2(-516.535mil,472.5mil)  Top Layer
+Rule Violations :14
+
+Processing Rule : Hole To Hole Clearance (Gap=10mil) (All),(All)
+Rule Violations :0
+
+Processing Rule : Hole Size Constraint (Min=1mil) (Max=100mil) (All)
+Rule Violations :0
+
+Processing Rule : Height Constraint (Min=0mil) (Max=1000mil) (Prefered=500mil) (All)
+Rule Violations :0
+
+Processing Rule : Width Constraint (Min=10mil) (Max=30mil) (Preferred=10mil) (All)
+Rule Violations :0
+
+Processing Rule : Power Plane Connect Rule(Relief Connect )(Expansion=20mil) (Conductor Width=10mil) (Air Gap=10mil) (Entries=4) (All)
+Rule Violations :0
+
+Processing Rule : Clearance Constraint (Gap=7.874mil) (All),(All)
+Rule Violations :0
+
+Processing Rule : Un-Routed Net Constraint ( (All) )
+Rule Violations :0
+
+Processing Rule : Short-Circuit Constraint (Allowed=No) (All),(All)
+Rule Violations :0
+
+
+Violations Detected : 45
+Time Elapsed        : 00:00:00

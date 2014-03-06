@@ -1,0 +1,524 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html">
+<style type="text/css">
+		h1, h2, h3, h4, h5, h6 {
+			font-family : sans-serif;
+			color : white;
+			background-color : #21489e;
+			padding: 0.3em;
+		}
+		body {
+			font-family : verdana;
+		}
+		td, th {
+			padding: 0.5em;
+			text-align : center;
+			width : 18%;
+		}
+		th {
+			background-color : #A6CAF0;
+
+		}
+		th.column1, td.column1 {
+			text-align: left;
+			width : auto;
+		}
+		table {
+			width : 100%;
+		}
+		
+		.DRC_summary_header {							
+			padding-bottom : 0.1em;
+			border : 0px solid black;							
+			width: 100%;
+                        align: right;
+                        
+		}
+
+		.DRC_summary_header_col1, 
+		.DRC_summary_header_col2, 
+		.DRC_summary_header_col3
+		{
+			color : black;
+			font-size:150%;
+                        padding : 0em;
+			padding-top : 0.2em;
+			padding-bottom 0.2: 0em;
+			border : 0px solid black;
+			width : auto;
+			vertical-align: top;
+			font-weight: bold;				
+		}
+		
+		.DRC_summary_header_col1 	
+		{		                       
+			text-align: right;
+                        width: auto;	
+		}
+
+		.DRC_summary_header_col2 	
+		{		
+			text-align: center;	
+		}
+
+		.DRC_summary_header_col3 	
+		{		
+			text-align: left;	
+		}
+
+
+		
+		.header_holder
+		{
+		Width = 100%;
+		border = 0px solid green;
+		padding = 0;
+		}
+		
+		
+		
+		.front_matter, .front_matter_column1, .front_matter_column2, .front_matter_column3
+                {
+			left:0;
+			top:0;
+			padding-top : 0.1em;			
+			border : 0px solid black;
+			width : 100%;
+			vertical-align: top
+
+		}
+		.front_matter {	
+			
+			margin-top: 5px;
+ 			margin-left: 0px;					 			
+ 			horizontal-align: left;
+		}
+				
+		
+		.front_matter_column1 {
+			width : 10em;	
+			text-align  : right;
+			padding-right:0.1em;
+			
+		}
+		
+		.front_matter_column2 {
+                        width: 0.1em;
+			align: center;
+			text-align : center;
+			margin-right  : 0.1em;	
+			margin-left   : 0.1em;
+		}
+		.front_matter_column3 {
+			width         : auto;  
+			text-align    : left;	
+			margin-right  : 0.5em;				
+		}
+		
+		.total_column1, .total_column {
+			font-weight : bold;
+		}
+		.total_column1 {
+			text-align : right;
+		}
+		.warning, .error {
+			color : red;
+			font-weight : bold;
+		}
+		tr.onmouseout_odd {
+			background-color : #EEEEE0 
+		}
+		tr.onmouseout_even { 
+			background-color : #F3F3E3   
+		}
+		tr.onmouseover_odd, tr.onmouseover_even { 
+			background-color : lightYellow
+		} 
+		a:link, a:visited, .q a:link,.q a:active,.q {
+			color: #21489e; 
+		}
+		a:link.callback, a:visited.callback { 
+			color: #008000 
+		}
+		a:link.customize, a:visited.customize {
+			color: #C0C0C0;
+			position: absolute; 
+			right: 10px;
+		}	
+		p.contents_level1 {
+			font-weight : bold;
+			font-size : 110%;
+			margin : 0.5em;
+		}
+		p.contents_level2 {
+			position : relative;
+			left : 20px;
+			margin : 0.5em;
+		}
+	</style><script type="text/javascript">
+		function coordToMils(coord) {
+			var number = coord / 10000;
+			
+			if (number != number.toFixed(3))
+				number = number.toFixed(3);
+
+			return number + 'mil'
+		}
+
+		function coordToMM(coord) {
+			var number = 0.0254 * coord / 10000;
+			
+			if (number != number.toFixed(4))
+				number = number.toFixed(4);
+			
+			return number + 'mm'
+		}
+	
+		function convertCoord(coordNode, units) {
+			for (var i = 0; i < coordNode.childNodes.length; i++) {
+				coordNode.removeChild(coordNode.childNodes[i]);
+			}
+
+			var coord = coordNode.getAttribute('value');
+			if (coord != null) {
+				if (units == 'mm') {
+					textNode = document.createTextNode(coordToMM(coord));
+					coordNode.appendChild(textNode);
+				} else if (units == 'mil') {
+					textNode = document.createTextNode(coordToMils(coord));		
+					coordNode.appendChild(textNode);	
+				}
+			}
+		}
+	
+		function convertUnits(unitNode, units) {
+			for (var i = 0; i < unitNode.childNodes.length; i++) {
+				unitNode.removeChild(unitNode.childNodes[i]);		
+			}
+		
+			textNode = document.createTextNode(units); 
+			unitNode.appendChild(textNode);
+		}
+	
+		function changeUnits(radio_input, units) {
+			if (radio_input.checked) {
+			
+				var elements = document.getElementsByName('coordinate');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertCoord(elements[i], units);
+					}
+				}
+	
+				var elements = document.getElementsByName('units');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertUnits(elements[i], units);
+					}
+				}
+			}
+		}
+	</script><title>Design Rule Verification Report</title>
+</head>
+<body onload=""><img ALT="Altium" src="
+			file://C:\Users\Public\Documents\Altium\AD13\Templates\AD-rgb_logo_223x64.gif
+		"><a href="dxpprocess://Client:SetupPreferences?Server=PCB|PageName=Reports" class="customize"><acronym title="dxpprocess://Client:SetupPreferences?Server=PCB|PageName=Reports">customize</acronym></a><h1>Design Rule Verification Report</h1>
+<table class="header_holder">
+<td Style="width:70%">
+<table class="front_matter">
+<tr class="front_matter">
+<td class="front_matter_column1">Date</td>
+<td class="front_matter_column2">:</td>
+<td class="front_matter_column3">2013-12-30</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Time</td>
+<td class="front_matter_column2">:</td>
+<td class="front_matter_column3">4:13:36 PM</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Elapsed Time</td>
+<td class="front_matter_column2">:</td>
+<td class="front_matter_column3">00:00:00</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Filename</td>
+<td class="front_matter_column2">:</td>
+<td class="front_matter_column3"><a href="file:///G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc" class="file"><acronym title="G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc">G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc</acronym></a></td>
+</tr>
+</table>
+</td>
+<td Style="Width:30%">
+<table class="DRC_summary_header">
+<tr>
+<td class="DRC_summary_header_col1">Warnings</td>
+<td class="DRC_summary_header_col2">:</td>
+<td class="DRC_summary_header_col3">0</td></tr>
+<tr>
+<td class="DRC_summary_header_col1">Rule Violations</td>
+<td class="DRC_summary_header_col2">:</td>
+<td class="DRC_summary_header_col3" style="color : red">45</td></tr>
+</table>
+</td>
+</table>
+<hr><a name="IDBE0JX3IEW5TGVNQ1CWZFX2Z4N"><h2>Summary</h2></a><table>
+<tr>
+<th class="column1">Warnings</th>
+<th class="column2">Count</th>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">0</td>
+</tr>
+</table><br><table>
+<tr>
+<th class="column1">Rule Violations</th>
+<th class="column2">Count</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#ID3HLFFANUGTC3JRVBU4XBOYHXGB">Net Antennae (Tolerance=0mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDE1MNTAEQWEQXOM1KMUUDPR1SJB">Silk to Silk (Clearance=10mil) (All),(All)</a></td>
+<td class="column2">9</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDM1WDPCWHT5L0DKZE0JFXH5ITLC">Silk To Solder Mask (Clearance=10mil) (IsPad),(All)</a></td>
+<td class="column2">22</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDD0VX1DICEDOMCCV1DBJRKBHEVJ">Minimum Solder Mask Sliver (Gap=10mil) (All),(All)</a></td>
+<td class="column2">14</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDCU1ZGV34OSJQFBULZY4L2KBD5">Hole To Hole Clearance (Gap=10mil) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDHLYVSZGVP0IOI5STMD4WRNYVE">Hole Size Constraint (Min=1mil) (Max=100mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDFQFLIHDDOJRIOZT0YJ3PVFEPUK">Height Constraint (Min=0mil) (Max=1000mil) (Prefered=500mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDOR5HXJXKFFZ0JMNA4QFGIC0ZEF">Width Constraint (Min=10mil) (Max=30mil) (Preferred=10mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDWDRIT3XUVGXHMI02CXSZMXFA3L">Power Plane Connect Rule(Relief Connect )(Expansion=20mil) (Conductor Width=10mil) (Air Gap=10mil) (Entries=4) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDS5UA4SOZWIVNMPZBQ1PHUH531F">Clearance Constraint (Gap=7.874mil) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDZO4M3VMR44IRBABZW1XFV0FSSI">Un-Routed Net Constraint ( (All) )</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDDDMYLFK0XQVAFLM1ACRJ2U1VWE">Short-Circuit Constraint (Allowed=No) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">45</td>
+</tr>
+</table><br><hr><a name="IDE1MNTAEQWEQXOM1KMUUDPR1SJB"><table>
+<tr>
+<th style="text-align : left" colspan="2" class="rule">Silk to Silk (Clearance=10mil) (All),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=35050.013mil|Location2.X=35110mil|Location1.Y=59644.99mil|Location2.Y=59664.99mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=35050.013mil|Location2.X=35110mil|Location1.Y=59644.99mil|Location2.Y=59664.99mil|Absolute=True">Text "-" (-245mil,800mil)  Bottom Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=35034.377mil|Location2.X=35125mil|Location1.Y=59609.689mil|Location2.Y=59700.311mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=35034.377mil|Location2.X=35125mil|Location1.Y=59609.689mil|Location2.Y=59700.311mil|Absolute=True">Arc (-265.311mil,830mil)  Bottom Overlay</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34825.013mil|Location2.X=34885mil|Location1.Y=59624.997mil|Location2.Y=59684.984mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34825.013mil|Location2.X=34885mil|Location1.Y=59624.997mil|Location2.Y=59684.984mil|Absolute=True">Text "+" (-470mil,800mil)  Bottom Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34809.689mil|Location2.X=34900.311mil|Location1.Y=59609.689mil|Location2.Y=59700.311mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34809.689mil|Location2.X=34900.311mil|Location1.Y=59609.689mil|Location2.Y=59700.311mil|Absolute=True">Arc (-490mil,830mil)  Bottom Overlay</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=35080.019mil|Location2.X=35160mil|Location1.Y=59470mil|Location2.Y=59569.974mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=35080.019mil|Location2.X=35160mil|Location1.Y=59470mil|Location2.Y=59569.974mil|Absolute=True">Text "C1" (-195mil,655mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=35046.575mil|Location2.X=35170mil|Location1.Y=59455mil|Location2.Y=59465mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=35046.575mil|Location2.X=35170mil|Location1.Y=59455mil|Location2.Y=59465mil|Absolute=True">Track (-293.425mil,635mil)(-180mil,635mil)  Top Overlay</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34825.013mil|Location2.X=34885mil|Location1.Y=59624.997mil|Location2.Y=59684.984mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34825.013mil|Location2.X=34885mil|Location1.Y=59624.997mil|Location2.Y=59684.984mil|Absolute=True">Text "+" (-470mil,800mil)  Bottom Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34890.311mil|Location2.X=34965.311mil|Location1.Y=59650mil|Location2.Y=59660mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34890.311mil|Location2.X=34965.311mil|Location1.Y=59650mil|Location2.Y=59660mil|Absolute=True">Track (-449.689mil,830mil)(-384.689mil,830mil)  Bottom Overlay</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=35050.013mil|Location2.X=35110mil|Location1.Y=59644.99mil|Location2.Y=59664.99mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=35050.013mil|Location2.X=35110mil|Location1.Y=59644.99mil|Location2.Y=59664.99mil|Absolute=True">Text "-" (-245mil,800mil)  Bottom Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34995mil|Location2.X=35045mil|Location1.Y=59650mil|Location2.Y=59660mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34995mil|Location2.X=35045mil|Location1.Y=59650mil|Location2.Y=59660mil|Absolute=True">Track (-345mil,830mil)(-305mil,830mil)  Bottom Overlay</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=35080.019mil|Location2.X=35160mil|Location1.Y=59470mil|Location2.Y=59569.974mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=35080.019mil|Location2.X=35160mil|Location1.Y=59470mil|Location2.Y=59569.974mil|Absolute=True">Text "C1" (-195mil,655mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=35070mil|Location2.X=35169.974mil|Location1.Y=59570mil|Location2.Y=59649.981mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=35070mil|Location2.X=35169.974mil|Location1.Y=59570mil|Location2.Y=59649.981mil|Absolute=True">Text "J1" (-265mil,755mil)  Top Overlay</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34330.019mil|Location2.X=34410mil|Location1.Y=58845mil|Location2.Y=58964.968mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34330.019mil|Location2.X=34410mil|Location1.Y=58845mil|Location2.Y=58964.968mil|Absolute=True">Text "C4" (-945mil,30mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34410.019mil|Location2.X=34490mil|Location1.Y=58845mil|Location2.Y=58964.968mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34410.019mil|Location2.X=34490mil|Location1.Y=58845mil|Location2.Y=58964.968mil|Absolute=True">Text "C5" (-865mil,30mil)  Top Overlay</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34250.019mil|Location2.X=34330mil|Location1.Y=58845mil|Location2.Y=58964.968mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34250.019mil|Location2.X=34330mil|Location1.Y=58845mil|Location2.Y=58964.968mil|Absolute=True">Text "C3" (-1025mil,30mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34330.019mil|Location2.X=34410mil|Location1.Y=58845mil|Location2.Y=58964.968mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34330.019mil|Location2.X=34410mil|Location1.Y=58845mil|Location2.Y=58964.968mil|Absolute=True">Text "C4" (-945mil,30mil)  Top Overlay</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34250.019mil|Location2.X=34330mil|Location1.Y=58845mil|Location2.Y=58964.968mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34250.019mil|Location2.X=34330mil|Location1.Y=58845mil|Location2.Y=58964.968mil|Absolute=True">Text "C3" (-1025mil,30mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34170.019mil|Location2.X=34250mil|Location1.Y=58845mil|Location2.Y=58964.968mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34170.019mil|Location2.X=34250mil|Location1.Y=58845mil|Location2.Y=58964.968mil|Absolute=True">Text "C2" (-1105mil,30mil)  Top Overlay</acronym></a></td>
+</tr>
+</table></a><a href="#top">Back to top</a><br><br><a name="IDM1WDPCWHT5L0DKZE0JFXH5ITLC"><table>
+<tr>
+<th style="text-align : left" colspan="2" class="rule">Silk To Solder Mask (Clearance=10mil) (IsPad),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34515mil|Location2.X=34525mil|Location1.Y=58820mil|Location2.Y=58835mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34515mil|Location2.X=34525mil|Location1.Y=58820mil|Location2.Y=58835mil|Absolute=True">Track (-825mil,0mil)(-825mil,5mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34496.473mil|Location2.X=34563.527mil|Location1.Y=58838.008mil|Location2.Y=58897.189mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34496.473mil|Location2.X=34563.527mil|Location1.Y=58838.008mil|Location2.Y=58897.189mil|Absolute=True">Pad C2-2(-815mil,42.598mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=35040mil|Location2.X=35159.968mil|Location1.Y=59060mil|Location2.Y=59139.981mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=35040mil|Location2.X=35159.968mil|Location1.Y=59060mil|Location2.Y=59139.981mil|Absolute=True">Text "U2" (-295mil,245mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34969.15mil|Location2.X=35053.921mil|Location1.Y=59135.626mil|Location2.Y=59159.374mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34969.15mil|Location2.X=35053.921mil|Location1.Y=59135.626mil|Location2.Y=59159.374mil|Absolute=True">Pad U2-9(-333.464mil,322.5mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34955.433mil|Location2.X=34963.307mil|Location1.Y=59132.638mil|Location2.Y=59337.362mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34955.433mil|Location2.X=34963.307mil|Location1.Y=59132.638mil|Location2.Y=59337.362mil|Absolute=True">Track (-385.63mil,311.575mil)(-385.63mil,508.425mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34969.15mil|Location2.X=35053.921mil|Location1.Y=59135.626mil|Location2.Y=59159.374mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34969.15mil|Location2.X=35053.921mil|Location1.Y=59135.626mil|Location2.Y=59159.374mil|Absolute=True">Pad U2-9(-333.464mil,322.5mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34955.433mil|Location2.X=34963.307mil|Location1.Y=59132.638mil|Location2.Y=59337.362mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34955.433mil|Location2.X=34963.307mil|Location1.Y=59132.638mil|Location2.Y=59337.362mil|Absolute=True">Track (-385.63mil,311.575mil)(-385.63mil,508.425mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34969.15mil|Location2.X=35053.921mil|Location1.Y=59160.626mil|Location2.Y=59184.374mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34969.15mil|Location2.X=35053.921mil|Location1.Y=59160.626mil|Location2.Y=59184.374mil|Absolute=True">Pad U2-10(-333.464mil,347.5mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34955.433mil|Location2.X=34963.307mil|Location1.Y=59132.638mil|Location2.Y=59337.362mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34955.433mil|Location2.X=34963.307mil|Location1.Y=59132.638mil|Location2.Y=59337.362mil|Absolute=True">Track (-385.63mil,311.575mil)(-385.63mil,508.425mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34969.15mil|Location2.X=35053.921mil|Location1.Y=59185.626mil|Location2.Y=59209.374mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34969.15mil|Location2.X=35053.921mil|Location1.Y=59185.626mil|Location2.Y=59209.374mil|Absolute=True">Pad U2-11(-333.464mil,372.5mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34955.433mil|Location2.X=34963.307mil|Location1.Y=59132.638mil|Location2.Y=59337.362mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34955.433mil|Location2.X=34963.307mil|Location1.Y=59132.638mil|Location2.Y=59337.362mil|Absolute=True">Track (-385.63mil,311.575mil)(-385.63mil,508.425mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34969.15mil|Location2.X=35053.921mil|Location1.Y=59210.626mil|Location2.Y=59234.374mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34969.15mil|Location2.X=35053.921mil|Location1.Y=59210.626mil|Location2.Y=59234.374mil|Absolute=True">Pad U2-12(-333.464mil,397.5mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34955.433mil|Location2.X=34963.307mil|Location1.Y=59132.638mil|Location2.Y=59337.362mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34955.433mil|Location2.X=34963.307mil|Location1.Y=59132.638mil|Location2.Y=59337.362mil|Absolute=True">Track (-385.63mil,311.575mil)(-385.63mil,508.425mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34969.15mil|Location2.X=35053.921mil|Location1.Y=59235.626mil|Location2.Y=59259.374mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34969.15mil|Location2.X=35053.921mil|Location1.Y=59235.626mil|Location2.Y=59259.374mil|Absolute=True">Pad U2-13(-333.464mil,422.5mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34955.433mil|Location2.X=34963.307mil|Location1.Y=59132.638mil|Location2.Y=59337.362mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34955.433mil|Location2.X=34963.307mil|Location1.Y=59132.638mil|Location2.Y=59337.362mil|Absolute=True">Track (-385.63mil,311.575mil)(-385.63mil,508.425mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34969.15mil|Location2.X=35053.921mil|Location1.Y=59260.626mil|Location2.Y=59284.374mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34969.15mil|Location2.X=35053.921mil|Location1.Y=59260.626mil|Location2.Y=59284.374mil|Absolute=True">Pad U2-14(-333.464mil,447.5mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34955.433mil|Location2.X=34963.307mil|Location1.Y=59132.638mil|Location2.Y=59337.362mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34955.433mil|Location2.X=34963.307mil|Location1.Y=59132.638mil|Location2.Y=59337.362mil|Absolute=True">Track (-385.63mil,311.575mil)(-385.63mil,508.425mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34969.15mil|Location2.X=35053.921mil|Location1.Y=59285.626mil|Location2.Y=59309.374mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34969.15mil|Location2.X=35053.921mil|Location1.Y=59285.626mil|Location2.Y=59309.374mil|Absolute=True">Pad U2-15(-333.464mil,472.5mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34955.433mil|Location2.X=34963.307mil|Location1.Y=59132.638mil|Location2.Y=59337.362mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34955.433mil|Location2.X=34963.307mil|Location1.Y=59132.638mil|Location2.Y=59337.362mil|Absolute=True">Track (-385.63mil,311.575mil)(-385.63mil,508.425mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34969.15mil|Location2.X=35053.921mil|Location1.Y=59310.626mil|Location2.Y=59334.374mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34969.15mil|Location2.X=35053.921mil|Location1.Y=59310.626mil|Location2.Y=59334.374mil|Absolute=True">Pad U2-16(-333.464mil,497.5mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34876.693mil|Location2.X=34884.567mil|Location1.Y=59132.638mil|Location2.Y=59337.362mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34876.693mil|Location2.X=34884.567mil|Location1.Y=59132.638mil|Location2.Y=59337.362mil|Absolute=True">Track (-464.37mil,311.575mil)(-464.37mil,508.425mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34786.079mil|Location2.X=34870.85mil|Location1.Y=59135.626mil|Location2.Y=59159.374mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34786.079mil|Location2.X=34870.85mil|Location1.Y=59135.626mil|Location2.Y=59159.374mil|Absolute=True">Pad U2-8(-516.535mil,322.5mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34876.693mil|Location2.X=34884.567mil|Location1.Y=59132.638mil|Location2.Y=59337.362mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34876.693mil|Location2.X=34884.567mil|Location1.Y=59132.638mil|Location2.Y=59337.362mil|Absolute=True">Track (-464.37mil,311.575mil)(-464.37mil,508.425mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34786.079mil|Location2.X=34870.85mil|Location1.Y=59160.626mil|Location2.Y=59184.374mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34786.079mil|Location2.X=34870.85mil|Location1.Y=59160.626mil|Location2.Y=59184.374mil|Absolute=True">Pad U2-7(-516.535mil,347.5mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34876.693mil|Location2.X=34884.567mil|Location1.Y=59132.638mil|Location2.Y=59337.362mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34876.693mil|Location2.X=34884.567mil|Location1.Y=59132.638mil|Location2.Y=59337.362mil|Absolute=True">Track (-464.37mil,311.575mil)(-464.37mil,508.425mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34786.079mil|Location2.X=34870.85mil|Location1.Y=59185.626mil|Location2.Y=59209.374mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34786.079mil|Location2.X=34870.85mil|Location1.Y=59185.626mil|Location2.Y=59209.374mil|Absolute=True">Pad U2-6(-516.535mil,372.5mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34876.693mil|Location2.X=34884.567mil|Location1.Y=59132.638mil|Location2.Y=59337.362mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34876.693mil|Location2.X=34884.567mil|Location1.Y=59132.638mil|Location2.Y=59337.362mil|Absolute=True">Track (-464.37mil,311.575mil)(-464.37mil,508.425mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34786.079mil|Location2.X=34870.85mil|Location1.Y=59210.626mil|Location2.Y=59234.374mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34786.079mil|Location2.X=34870.85mil|Location1.Y=59210.626mil|Location2.Y=59234.374mil|Absolute=True">Pad U2-5(-516.535mil,397.5mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34876.693mil|Location2.X=34884.567mil|Location1.Y=59132.638mil|Location2.Y=59337.362mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34876.693mil|Location2.X=34884.567mil|Location1.Y=59132.638mil|Location2.Y=59337.362mil|Absolute=True">Track (-464.37mil,311.575mil)(-464.37mil,508.425mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34786.079mil|Location2.X=34870.85mil|Location1.Y=59235.626mil|Location2.Y=59259.374mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34786.079mil|Location2.X=34870.85mil|Location1.Y=59235.626mil|Location2.Y=59259.374mil|Absolute=True">Pad U2-4(-516.535mil,422.5mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34876.693mil|Location2.X=34884.567mil|Location1.Y=59132.638mil|Location2.Y=59337.362mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34876.693mil|Location2.X=34884.567mil|Location1.Y=59132.638mil|Location2.Y=59337.362mil|Absolute=True">Track (-464.37mil,311.575mil)(-464.37mil,508.425mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34786.079mil|Location2.X=34870.85mil|Location1.Y=59260.626mil|Location2.Y=59284.374mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34786.079mil|Location2.X=34870.85mil|Location1.Y=59260.626mil|Location2.Y=59284.374mil|Absolute=True">Pad U2-3(-516.535mil,447.5mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34876.693mil|Location2.X=34884.567mil|Location1.Y=59132.638mil|Location2.Y=59337.362mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34876.693mil|Location2.X=34884.567mil|Location1.Y=59132.638mil|Location2.Y=59337.362mil|Absolute=True">Track (-464.37mil,311.575mil)(-464.37mil,508.425mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34786.079mil|Location2.X=34870.85mil|Location1.Y=59285.626mil|Location2.Y=59309.374mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34786.079mil|Location2.X=34870.85mil|Location1.Y=59285.626mil|Location2.Y=59309.374mil|Absolute=True">Pad U2-2(-516.535mil,472.5mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34876.693mil|Location2.X=34884.567mil|Location1.Y=59132.638mil|Location2.Y=59337.362mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34876.693mil|Location2.X=34884.567mil|Location1.Y=59132.638mil|Location2.Y=59337.362mil|Absolute=True">Track (-464.37mil,311.575mil)(-464.37mil,508.425mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34786.079mil|Location2.X=34870.85mil|Location1.Y=59310.626mil|Location2.Y=59334.374mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34786.079mil|Location2.X=34870.85mil|Location1.Y=59310.626mil|Location2.Y=59334.374mil|Absolute=True">Pad U2-1(-516.535mil,497.5mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=35050.039mil|Location2.X=35190mil|Location1.Y=59350mil|Location2.Y=59439.977mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=35050.039mil|Location2.X=35190mil|Location1.Y=59350mil|Location2.Y=59439.977mil|Absolute=True">Text "!CS" (-165mil,535mil)  Bottom Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=35006.473mil|Location2.X=35073.527mil|Location1.Y=59351.473mil|Location2.Y=59418.527mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=35006.473mil|Location2.X=35073.527mil|Location1.Y=59351.473mil|Location2.Y=59418.527mil|Absolute=True">Pad Free-6(-305mil,560mil)  Multi-Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=35029.587mil|Location2.X=35034.587mil|Location1.Y=59678.091mil|Location2.Y=59794.311mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=35029.587mil|Location2.X=35034.587mil|Location1.Y=59678.091mil|Location2.Y=59794.311mil|Absolute=True">Track (-312.913mil,855.591mil)(-312.913mil,966.811mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34984.779mil|Location2.X=35095.142mil|Location1.Y=59795.685mil|Location2.Y=59921.795mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34984.779mil|Location2.X=35095.142mil|Location1.Y=59795.685mil|Location2.Y=59921.795mil|Absolute=True">Pad J4-3(-305.039mil,1033.74mil)  Multi-Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=35029.587mil|Location2.X=35034.587mil|Location1.Y=59923.169mil|Location2.Y=60254.941mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=35029.587mil|Location2.X=35034.587mil|Location1.Y=59923.169mil|Location2.Y=60254.941mil|Absolute=True">Track (-312.913mil,1100.669mil)(-312.913mil,1427.441mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34984.779mil|Location2.X=35095.142mil|Location1.Y=59795.685mil|Location2.Y=59921.795mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34984.779mil|Location2.X=35095.142mil|Location1.Y=59795.685mil|Location2.Y=59921.795mil|Absolute=True">Pad J4-3(-305.039mil,1033.74mil)  Multi-Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=35029.587mil|Location2.X=35421.398mil|Location1.Y=59678.091mil|Location2.Y=59683.091mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=35029.587mil|Location2.X=35421.398mil|Location1.Y=59678.091mil|Location2.Y=59683.091mil|Absolute=True">Track (-312.913mil,855.591mil)(73.898mil,855.591mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=35161.945mil|Location2.X=35288.055mil|Location1.Y=59685.449mil|Location2.Y=59795.811mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=35161.945mil|Location2.X=35288.055mil|Location1.Y=59685.449mil|Location2.Y=59795.811mil|Absolute=True">Pad J4-1(-120mil,915.63mil)  Multi-Layer</acronym></a></td>
+</tr>
+</table></a><a href="#top">Back to top</a><br><br><a name="IDD0VX1DICEDOMCCV1DBJRKBHEVJ"><table>
+<tr>
+<th style="text-align : left" colspan="2" class="rule">Minimum Solder Mask Sliver (Gap=10mil) (All),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34969.15mil|Location2.X=35053.921mil|Location1.Y=59160.626mil|Location2.Y=59184.374mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34969.15mil|Location2.X=35053.921mil|Location1.Y=59160.626mil|Location2.Y=59184.374mil|Absolute=True">Pad U2-10(-333.464mil,347.5mil)  Top Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34969.15mil|Location2.X=35053.921mil|Location1.Y=59135.626mil|Location2.Y=59159.374mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34969.15mil|Location2.X=35053.921mil|Location1.Y=59135.626mil|Location2.Y=59159.374mil|Absolute=True">Pad U2-9(-333.464mil,322.5mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34969.15mil|Location2.X=35053.921mil|Location1.Y=59185.626mil|Location2.Y=59209.374mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34969.15mil|Location2.X=35053.921mil|Location1.Y=59185.626mil|Location2.Y=59209.374mil|Absolute=True">Pad U2-11(-333.464mil,372.5mil)  Top Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34969.15mil|Location2.X=35053.921mil|Location1.Y=59160.626mil|Location2.Y=59184.374mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34969.15mil|Location2.X=35053.921mil|Location1.Y=59160.626mil|Location2.Y=59184.374mil|Absolute=True">Pad U2-10(-333.464mil,347.5mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34969.15mil|Location2.X=35053.921mil|Location1.Y=59210.626mil|Location2.Y=59234.374mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34969.15mil|Location2.X=35053.921mil|Location1.Y=59210.626mil|Location2.Y=59234.374mil|Absolute=True">Pad U2-12(-333.464mil,397.5mil)  Top Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34969.15mil|Location2.X=35053.921mil|Location1.Y=59185.626mil|Location2.Y=59209.374mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34969.15mil|Location2.X=35053.921mil|Location1.Y=59185.626mil|Location2.Y=59209.374mil|Absolute=True">Pad U2-11(-333.464mil,372.5mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34969.15mil|Location2.X=35053.921mil|Location1.Y=59235.626mil|Location2.Y=59259.374mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34969.15mil|Location2.X=35053.921mil|Location1.Y=59235.626mil|Location2.Y=59259.374mil|Absolute=True">Pad U2-13(-333.464mil,422.5mil)  Top Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34969.15mil|Location2.X=35053.921mil|Location1.Y=59210.626mil|Location2.Y=59234.374mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34969.15mil|Location2.X=35053.921mil|Location1.Y=59210.626mil|Location2.Y=59234.374mil|Absolute=True">Pad U2-12(-333.464mil,397.5mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34969.15mil|Location2.X=35053.921mil|Location1.Y=59260.626mil|Location2.Y=59284.374mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34969.15mil|Location2.X=35053.921mil|Location1.Y=59260.626mil|Location2.Y=59284.374mil|Absolute=True">Pad U2-14(-333.464mil,447.5mil)  Top Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34969.15mil|Location2.X=35053.921mil|Location1.Y=59235.626mil|Location2.Y=59259.374mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34969.15mil|Location2.X=35053.921mil|Location1.Y=59235.626mil|Location2.Y=59259.374mil|Absolute=True">Pad U2-13(-333.464mil,422.5mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34969.15mil|Location2.X=35053.921mil|Location1.Y=59285.626mil|Location2.Y=59309.374mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34969.15mil|Location2.X=35053.921mil|Location1.Y=59285.626mil|Location2.Y=59309.374mil|Absolute=True">Pad U2-15(-333.464mil,472.5mil)  Top Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34969.15mil|Location2.X=35053.921mil|Location1.Y=59260.626mil|Location2.Y=59284.374mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34969.15mil|Location2.X=35053.921mil|Location1.Y=59260.626mil|Location2.Y=59284.374mil|Absolute=True">Pad U2-14(-333.464mil,447.5mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34969.15mil|Location2.X=35053.921mil|Location1.Y=59310.626mil|Location2.Y=59334.374mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34969.15mil|Location2.X=35053.921mil|Location1.Y=59310.626mil|Location2.Y=59334.374mil|Absolute=True">Pad U2-16(-333.464mil,497.5mil)  Top Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34969.15mil|Location2.X=35053.921mil|Location1.Y=59285.626mil|Location2.Y=59309.374mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34969.15mil|Location2.X=35053.921mil|Location1.Y=59285.626mil|Location2.Y=59309.374mil|Absolute=True">Pad U2-15(-333.464mil,472.5mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34786.079mil|Location2.X=34870.85mil|Location1.Y=59160.626mil|Location2.Y=59184.374mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34786.079mil|Location2.X=34870.85mil|Location1.Y=59160.626mil|Location2.Y=59184.374mil|Absolute=True">Pad U2-7(-516.535mil,347.5mil)  Top Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34786.079mil|Location2.X=34870.85mil|Location1.Y=59135.626mil|Location2.Y=59159.374mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34786.079mil|Location2.X=34870.85mil|Location1.Y=59135.626mil|Location2.Y=59159.374mil|Absolute=True">Pad U2-8(-516.535mil,322.5mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34786.079mil|Location2.X=34870.85mil|Location1.Y=59185.626mil|Location2.Y=59209.374mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34786.079mil|Location2.X=34870.85mil|Location1.Y=59185.626mil|Location2.Y=59209.374mil|Absolute=True">Pad U2-6(-516.535mil,372.5mil)  Top Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34786.079mil|Location2.X=34870.85mil|Location1.Y=59160.626mil|Location2.Y=59184.374mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34786.079mil|Location2.X=34870.85mil|Location1.Y=59160.626mil|Location2.Y=59184.374mil|Absolute=True">Pad U2-7(-516.535mil,347.5mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34786.079mil|Location2.X=34870.85mil|Location1.Y=59210.626mil|Location2.Y=59234.374mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34786.079mil|Location2.X=34870.85mil|Location1.Y=59210.626mil|Location2.Y=59234.374mil|Absolute=True">Pad U2-5(-516.535mil,397.5mil)  Top Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34786.079mil|Location2.X=34870.85mil|Location1.Y=59185.626mil|Location2.Y=59209.374mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34786.079mil|Location2.X=34870.85mil|Location1.Y=59185.626mil|Location2.Y=59209.374mil|Absolute=True">Pad U2-6(-516.535mil,372.5mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34786.079mil|Location2.X=34870.85mil|Location1.Y=59235.626mil|Location2.Y=59259.374mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34786.079mil|Location2.X=34870.85mil|Location1.Y=59235.626mil|Location2.Y=59259.374mil|Absolute=True">Pad U2-4(-516.535mil,422.5mil)  Top Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34786.079mil|Location2.X=34870.85mil|Location1.Y=59210.626mil|Location2.Y=59234.374mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34786.079mil|Location2.X=34870.85mil|Location1.Y=59210.626mil|Location2.Y=59234.374mil|Absolute=True">Pad U2-5(-516.535mil,397.5mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34786.079mil|Location2.X=34870.85mil|Location1.Y=59260.626mil|Location2.Y=59284.374mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34786.079mil|Location2.X=34870.85mil|Location1.Y=59260.626mil|Location2.Y=59284.374mil|Absolute=True">Pad U2-3(-516.535mil,447.5mil)  Top Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34786.079mil|Location2.X=34870.85mil|Location1.Y=59235.626mil|Location2.Y=59259.374mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34786.079mil|Location2.X=34870.85mil|Location1.Y=59235.626mil|Location2.Y=59259.374mil|Absolute=True">Pad U2-4(-516.535mil,422.5mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34786.079mil|Location2.X=34870.85mil|Location1.Y=59285.626mil|Location2.Y=59309.374mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34786.079mil|Location2.X=34870.85mil|Location1.Y=59285.626mil|Location2.Y=59309.374mil|Absolute=True">Pad U2-2(-516.535mil,472.5mil)  Top Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34786.079mil|Location2.X=34870.85mil|Location1.Y=59260.626mil|Location2.Y=59284.374mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34786.079mil|Location2.X=34870.85mil|Location1.Y=59260.626mil|Location2.Y=59284.374mil|Absolute=True">Pad U2-3(-516.535mil,447.5mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34786.079mil|Location2.X=34870.85mil|Location1.Y=59310.626mil|Location2.Y=59334.374mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34786.079mil|Location2.X=34870.85mil|Location1.Y=59310.626mil|Location2.Y=59334.374mil|Absolute=True">Pad U2-1(-516.535mil,497.5mil)  Top Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34786.079mil|Location2.X=34870.85mil|Location1.Y=59285.626mil|Location2.Y=59309.374mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=G:\Dropbox\School\Capstone Design Project\Hardware\CAD\Altium Project\MotorShield\MotorShield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=34786.079mil|Location2.X=34870.85mil|Location1.Y=59285.626mil|Location2.Y=59309.374mil|Absolute=True">Pad U2-2(-516.535mil,472.5mil)  Top Layer</acronym></a></td>
+</tr>
+</table></a><a href="#top">Back to top</a><br><br></body>
+</html>
