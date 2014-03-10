@@ -1,0 +1,12 @@
+<project name="TranformXml" default="TransformAll">
+	<target name="TransformAll">
+		<!-- Transform all the files in the current directory -->
+		<xslt basedir="." destdir="."
+			includes="*.xml"
+			excludes="build.xml"
+			style="codegen\CustomDescriptor.xsl"
+		>
+			<factory name="net.sf.saxon.TransformerFactoryImpl"/>
+		</xslt>
+	</target>
+</project>

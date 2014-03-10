@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<peripheral class="PrintoutDesc" typeID="89">
+	<peripheral-type>Remote Message Board</peripheral-type>
+	
+		
+	<triggers>
+		<trigger id="GOT_DATA">
+			<name>Got Data</name>
+		</trigger>
+	</triggers>
+	
+	<actions>
+		<action id="SET_TEXT">
+			<name>Set Text</name>
+			<function id="setText">
+				<argument type="String" id="newText">Message Text</argument>
+			</function>
+		</action>
+		
+		<action id="CLEAR_TEXT">
+			<name>Clear Text</name>
+			<function id="clearText">
+			</function>
+		</action>
+	</actions>
+	
+	<statuses>
+		<status id="DISPLAY_TEXT">
+			<name>Display Text</name>
+		</status>		
+	</statuses>
+	
+	<!-- Define local and remote functions -->
+	
+	<remote id="0" function-id="setMessageText" blocking="true">
+		<argument type="String" id="newText"/>
+		<argument type="String" id="otherNewText"/>
+		<argument type="Short" id="delayTime"/>
+	</remote>
+	<remote id="1" function-id="clearText" blocking="true">
+		
+	</remote>
+	
+	<callback id="0" function-id="callback0">
+		<argument type="Short" id="someData"/>
+		<argument type="String" id="otherNewText"/>
+	</callback>
+	
+	<callback id="1" function-id="doSomething"/>
+	
+	<callback id="5" function-id="funct">
+		<argument type="String" id="someData"/>	
+		<argument type="String" id="otherNewText"/>
+	</callback>
+	
+</peripheral>
