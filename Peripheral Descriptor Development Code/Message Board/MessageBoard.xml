@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<peripheral class="MessageBoard" typeID="55">
+	<peripheral-type>Message Board</peripheral-type>
+	
+	
+	<triggers>
+		<trigger id="NEW_MESSAGE">
+			<name>New Message Received</name>
+		</trigger>
+	</triggers>
+	
+	<actions>
+		<action id="POST_TO_MESSAGE_BOARD">
+			<name>Post to Message Board</name>
+			<function id="addMessage">
+				<argument type="String" id="message">New Message</argument>
+			</function>
+		</action>
+		
+		<action id="SET_MAX_MESSAGES">
+			<name>Set Max Number of Messages</name>
+			<function id="setMaxMessages">
+				<argument type="Integer" id="maxNumMessages">Max Number of Messages</argument>
+			</function>
+		</action>
+	</actions>
+	
+	<statuses>
+		<status id="MESSAGES">
+			<name>Messages</name>
+		</status>
+		<status id="MAX_NUM_MESSAGES">
+			<name>Maximum Number of Messages</name>
+		</status>
+	</statuses>
+	
+</peripheral>

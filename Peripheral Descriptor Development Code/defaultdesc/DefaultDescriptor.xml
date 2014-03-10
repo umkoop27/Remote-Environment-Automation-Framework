@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<peripheral class="MyCustomDescriptor" typeID="1">
+	<peripheral-type>Customdescriptor</peripheral-type>
+	
+	
+	<triggers>
+		
+	</triggers>
+	
+	<actions>
+		
+	</actions>
+	
+	<statuses>
+			
+	</statuses>
+	
+</peripheral>

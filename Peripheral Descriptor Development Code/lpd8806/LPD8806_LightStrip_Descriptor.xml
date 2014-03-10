@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<peripheral class="LPD8806" typeID="47">
+	<peripheral-type>LPD8806 LightStrip</peripheral-type>
+	
+	<actions>
+		<action id="COLORCHASE">
+			<name>Color Chase</name>
+			<function id="doColorChase"/>
+		</action>
+		
+		<action id="COLORCHASESTOP">
+			<name>Stop Color Chase</name>
+			<function id="stopColorChase"/>
+		</action>
+	</actions>
+	
+	<!-- chase one dot down the strip: color, wait (ms) -->
+	<remote id="1" function-id="colorChaseStart">
+	</remote>
+	
+	<remote id="2" function-id="colorChaseStop">
+	</remote>
+
+</peripheral>

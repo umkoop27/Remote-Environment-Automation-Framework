@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<peripheral class="CoolTimer" typeID="54">
+	<peripheral-type>My Timer</peripheral-type>
+	
+	
+	<triggers>
+		<trigger id="TIMER_EXPIRED">
+			<name>Timer Expired</name>
+		</trigger>
+		
+		<trigger id="CURRENT_DATE">
+			<name>Current Date is</name>
+			<argument type="Date" id="TARGET_DATE">Target Date</argument>
+		</trigger>
+		
+		
+		<trigger id="TIMER_STOPPED">
+			<name>Timer was Stopped</name>
+		</trigger>
+	</triggers>
+	
+	<actions>
+		<action id="STOP_TIMER">
+			<name>Stop Timer</name>
+			<function id="stopTimer">
+			</function>
+		</action>
+		
+		<action id="SET_TIMER">
+			<name>Set Timer</name>
+			<function id="setTimer">
+				<argument type="Integer" id="seconds">Timer Seconds</argument>
+			</function>
+		</action>
+	</actions>
+	
+	<statuses>
+		<status id="TIMER_VALUE">
+			<name>Timer Value</name>
+		</status>
+		<status id="TIMER_NAME">
+			<name>Paul is cool</name>
+		</status>
+	</statuses>
+	
+</peripheral>

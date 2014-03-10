@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<peripheral class="CompoundPeripheral" typeID="49">
+	<peripheral-type>Compound Peripheral</peripheral-type>
+	
+	<triggers>
+	
+		<trigger id="MAGNETIC_CONTACT_TOGGLE">
+			<name>Magnetic Contact Toggle</name>
+		</trigger>
+		
+		<trigger id="MAGNETIC_CONTACT_CLOSED">
+			<name>Magnetic Contact Closed</name>
+		</trigger>
+		
+		<trigger id="MAGNETIC_CONTACT_OPEN">
+			<name>Magnetic Contact Open</name>
+		</trigger>
+	
+	</triggers>
+	
+	<statuses>
+		<status id="magneticContact">
+			<name>Magnetic Contact State</name>
+			<argument type="String"></argument>
+		</status>
+		<status id="buzzer">
+			<name>Buzzer State</name>
+			<argument type="String"></argument>
+		</status>
+		<status id="toggleableAppliance1">
+			<name>Appliance 1 State</name>
+			<argument type="String"></argument>
+		</status>
+		<status id="toggleableAppliance2">
+			<name>Appliance 2 State</name>
+			<argument type="String"></argument>
+		</status>
+		<status id="toggleableAppliance3">
+			<name>Appliance 3 State</name>
+			<argument type="String"></argument>
+		</status>		
+	</statuses>
+	
+	<actions>
+		<action id="SET_BUZZER_ON">
+			<name>Activate Buzzer</name>
+			<function id="setBuzzerOn">
+			</function>
+		</action>
+		<action id="SET_BUZZER_OFF">
+			<name>Deactivate Buzzer</name>
+			<function id="setBuzzerOff">
+			</function>
+		</action>
+		
+		<action id="SET_APPL1_ON">
+			<name>Activate Appliance 1</name>
+			<function id="setAppliance1On">
+			</function>
+		</action>
+		<action id="SET_APPL1_OFF">
+			<name>Deactivate Appliance 1</name>
+			<function id="setAppliance1Off">
+			</function>
+		</action>
+		
+		<action id="SET_APPL2_ON">
+			<name>Activate Appliance 2</name>
+			<function id="setAppliance2On">
+			</function>
+		</action>
+		<action id="SET_APPL2_OFF">
+			<name>Deactivate Appliance 2</name>
+			<function id="setAppliance2Off">
+			</function>
+		</action>
+		
+		<action id="SET_APPL3_ON">
+			<name>Activate Appliance 3</name>
+			<function id="setAppliance3On">
+			</function>
+		</action>
+		<action id="SET_APPL3_OFF">
+			<name>Deactivate Appliance 3</name>
+			<function id="setAppliance3Off">
+			</function>
+		</action>
+	</actions>
+	
+	<!-- Define local and remote functions -->
+	
+	<remote id="1" function-id="requestMagneticContactState">
+	</remote>
+	
+	<remote id="2" function-id="requestBuzzerState">
+	</remote>
+	
+	<remote id="3" function-id="setBuzzerOn">
+	</remote>
+	
+	<remote id="4" function-id="setBuzzerOff">
+	</remote>
+	
+	<remote id="5" function-id="requestAppliance1State">
+	</remote>
+	
+	<remote id="6" function-id="setAppliance1On">
+	</remote>
+	
+	<remote id="7" function-id="setAppliance1Off">
+	</remote>
+	
+	<remote id="8" function-id="requestAppliance2State">
+	</remote>
+	
+	<remote id="9" function-id="setAppliance2On">
+	</remote>
+	
+	<remote id="10" function-id="setAppliance2Off">
+	</remote>
+		
+	<remote id="11" function-id="requestAppliance3State">
+	</remote>
+	
+	<remote id="12" function-id="setAppliance3On">
+	</remote>
+	
+	<remote id="13" function-id="setAppliance3Off">
+	</remote>
+	
+	<callback id="14" function-id="receiveMagneticContactState">
+		<argument type="Byte" id="state"/>
+	</callback>
+	
+	<callback id="15" function-id="receiveBuzzerState">
+		<argument type="Byte" id="state"/>	
+	</callback>	
+	
+	<callback id="16" function-id="receiveAppliance1State">
+		<argument type="Byte" id="state"/>	
+	</callback>	
+	
+	<callback id="17" function-id="receiveAppliance2State">
+		<argument type="Byte" id="state"/>	
+	</callback>
+	
+	<callback id="18" function-id="receiveAppliance3State">
+		<argument type="Byte" id="state"/>	
+	</callback>	
+
+</peripheral>

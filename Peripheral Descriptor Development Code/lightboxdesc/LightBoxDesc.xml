@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<peripheral class="LightBoxDesc" typeID="19">
+	<peripheral-type>Jonathan's super awesome light box</peripheral-type>
+	
+	<triggers>
+		
+	</triggers>
+	
+	<actions>
+		<action id="SET_RED">
+			<name>Set Red</name>
+			<function id="setRed">
+				<argument type="Boolean" id="newState">Red State</argument>
+			</function>
+		</action>
+		
+		<action id="SET_WHITE">
+			<name>Set White</name>
+			<function id="setWhite">
+				<argument type="Boolean" id="newState">Red State</argument>
+			</function>
+		</action>
+		
+		<action id="SET_YELLOW">
+			<name>Set Yellow</name>
+			<function id="setYellow">
+				<argument type="Boolean" id="newState">Yellow State</argument>
+			</function>
+		</action>
+		
+		<action id="SET_GREEN">
+			<name>Set Green</name>
+			<function id="setGreen">
+				<argument type="Boolean" id="newState">Green State</argument>
+			</function>
+		</action>
+		
+		<action id="SET_GREEN_INTENSITY">
+			<name>Set Green Intensity</name>
+			<function id="setGreenIntensity">
+				<argument type="Integer" id="brightness">Green Brightness</argument>
+			</function>
+		</action>
+		
+		<action id="SET_BLUE">
+			<name>Set Blue</name>
+			<function id="setBlue">
+				<argument type="Boolean" id="newState">Blue State</argument>
+			</function>
+		</action>
+		
+		<action id="BLINK">
+			<name>Blink All</name>
+			<function id="blinkAll">
+				<argument type="Integer" id="timesToBlink">Times To Blink</argument>
+			</function>
+		</action>
+		
+		<action id="ALL_ON">
+			<name>All On</name>
+			<function id="allOn"/>
+		</action>
+		
+		<action id="ALL_OFF">
+			<name>All Off</name>
+			<function id="allOff"/>
+		</action>		
+		
+	</actions>
+	
+	<statuses>
+		<status id="LIGHT_STATE">
+			<name>Light State</name>
+		</status>		
+	</statuses>
+	
+	<!-- Define local and remote functions -->
+	
+	<remote id="1" function-id="redLightOn"/>
+	<remote id="2" function-id="redLightOff"/>
+	<remote id="3" function-id="whiteLightOn"/>
+	<remote id="4" function-id="whiteLightOff"/>
+	<remote id="5" function-id="yellowLightOn"/>
+	<remote id="6" function-id="yellowLightOff"/>
+	<remote id="7" function-id="greenLightOn"/>
+	<remote id="8" function-id="greenLightOff"/>
+	<remote id="9" function-id="blueLightOn"/>
+	<remote id="10" function-id="blueLightOff"/>
+	<remote id="11" function-id="blinkLights">
+		<argument type="Byte" id="num"/>	
+	</remote>
+	<remote id="12" function-id="turnAllOn"/>
+	<remote id="13" function-id="turnAllOff"/>
+	<remote id="14" function-id="setGreenBrightness">
+		<argument type="Short" id="value"/>
+	</remote>	
+</peripheral>

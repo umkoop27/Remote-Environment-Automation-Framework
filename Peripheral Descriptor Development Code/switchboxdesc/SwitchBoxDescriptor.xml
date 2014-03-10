@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<peripheral class="SwitchBoxDesc" typeID="6">
+	<peripheral-type>Switch Box</peripheral-type>
+			
+	<triggers>
+		<trigger id="SWITCH_1">
+			<name>Switch 1</name>
+			<argument type="Boolean" id="STATE">State</argument>
+		</trigger>
+		
+		<trigger id="SWITCH_2">
+			<name>Switch 2</name>
+			<argument type="Boolean" id="STATE">State</argument>
+		</trigger>
+		
+		<trigger id="SWITCH_3">
+			<name>Switch 3</name>
+			<argument type="Boolean" id="STATE">State</argument>
+		</trigger>
+		
+		<trigger id="DIAL">
+			<name>Dial</name>
+			<argument type="Integer" id="POSITION">Dial Position</argument>
+		</trigger>
+	</triggers>
+	
+	<actions>
+		<action id="SET_ENABLED">
+			<name>Enable/Disable</name>
+			<function id="setEnabled">
+				<argument type="Boolean" id="isEnabled">Status</argument>
+			</function>
+		</action>
+	</actions>
+	
+	<statuses>
+		<status id="DISPLAY_SWITCHES">
+			<name>Display Switches</name>
+		</status>		
+	</statuses>
+	
+	<!-- Define local and remote functions -->
+	
+	<remote id="1" function-id="setEnabled" blocking="true">
+		<argument type="Byte" id="set"/>
+	</remote>
+	
+	<callback id="1" function-id="switch1ChangedTo">
+		<argument type="Byte" id="switchState"/>
+	</callback>
+	
+	<callback id="2" function-id="switch2ChangedTo">
+		<argument type="Byte" id="switchState"/>
+	</callback>
+	
+	<callback id="3" function-id="switch3ChangedTo">
+		<argument type="Byte" id="switchState"/>
+	</callback>
+	
+	<callback id="4" function-id="dialChanged2">
+		<argument type="Byte" id="dialState"/>
+	</callback>	
+</peripheral>
