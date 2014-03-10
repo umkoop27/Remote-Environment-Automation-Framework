@@ -98,7 +98,7 @@ public class MainController implements TriggerHandler
 		
 		//start the web server
 		WebRequestHandler webRequestHandler = new WebRequestHandler(mainController);
-		InetSocketAddress addr = new InetSocketAddress(1443);
+		InetSocketAddress addr = new InetSocketAddress(443);
 		try
 		{
 			
