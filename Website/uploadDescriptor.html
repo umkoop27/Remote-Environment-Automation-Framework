@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+
+<html>
+
+	<head>
+	
+		<title>Upload Descriptor</title>
+		<link rel="stylesheet" type="text/css" href="style.css">
+		<script src="script.js"></script>
+
+	</head>
+	
+	<body>
+	
+		<div id="loading_indicator">
+			<i>Loading... Please wait.</i>
+		</div>
+	
+		<div id="main">
+			<div id="header">
+				<button type="button" class="button_return" onclick="get_page('index', '')">Home</button>
+				<h1 style="margin:0">Upload Descriptor</h3>
+			</div>
+			<div style="padding:10px;">
+				<form name="upload_descriptor" enctype="multipart/form-data" size="30" action="/uploadDescriptor" method="POST">
+					<input id="descriptorFile" type="file" style="background-color:rgb(255,255,255);" />
+					<input type="submit" value="Upload">
+				</form>
+			</div>
+		</div>
+	
+	</body>
+
+</html>
+
+<!--
+<HTML>
+<BODY>
+<FORM name="upload_descriptor" enctype="multipart/form-data" size="30" action="/uploadDescriptor" method="POST">
+	<input id="descriptorFile" type="file" />
+	<input type="submit" value="Upload">
+</FORM>
+</BODY>
+</HTML>
+-->

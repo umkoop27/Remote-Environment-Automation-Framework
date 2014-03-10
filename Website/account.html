@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+
+<html>
+
+	<head>
+	
+		<title>Account Settings</title>
+		<link rel="stylesheet" type="text/css" href="style.css">
+		<script src="script.js"></script>
+
+	</head>
+	
+	<body>
+	
+		<div id="loading_indicator">
+			<i>Loading... Please wait.</i>
+		</div>
+	
+		<div id="main">
+			<div id="header">
+				<button type="button" class="button_return" onclick="get_page('index', '')">Home</button>
+				<h1 style="margin:0">Account Settings</h1>
+			</div>
+			<div id="content" style="margin-top:10px;">
+				<button type="button" onclick="show('user_settings')">Change Username</button>
+				<button type="button" onclick="show('pass_settings')">Change Password</button>
+			</div>
+			<div id="user_settings" style="min-height:130px;margin:10px 0 10px 0;padding-top:20px;overflow:auto;background-color:aqua;border: 3px inset rgb(75,125,225);border-radius:25px;">
+				<div style="overflow:auto;">
+					<label>Old Username:</label><input type="text" class="input_field" id="user_old">
+					<label>New Username:</label><input type="text" class="input_field" id="user_new">
+				</div>
+				<br>
+				<button type="button" id="" onclick="edit_username()">Submit</button>
+				<br>
+				<br>
+				<div id="edit_username_error"></div>
+			</div>
+			<div id="pass_settings" style="min-height:130px;margin:10px 0 10px 0;padding-top:20px;overflow:auto;background-color:aqua;border: 3px inset rgb(75,125,225);border-radius:25px;">
+				<div style="overflow:auto;">
+					<label>Old Password:</label><input type="password" class="input_field" id="pass_old">
+					<label>New Password:</label><input type="password" class="input_field" id="pass_new">
+				</div>
+				<br>
+				<button type="button" id="" onclick="edit_password()">Submit</button>
+				<br>
+				<br>
+				<div id="edit_password_error"></div>
+			</div>
+		</div>
+	
+	</body>
+
+</html>

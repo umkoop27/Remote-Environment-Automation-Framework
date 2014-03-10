@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+
+<html>
+
+	<head>
+	
+		<title>Automation System</title>
+		<link rel="stylesheet" type="text/css" href="style.css">
+		<script src="script.js"></script>
+
+	</head>
+	
+	<body onload="http_post_request('message_board', 1, '')">
+	
+		<div id="loading_indicator">
+			<i>Loading... Please wait.</i>
+		</div>
+	
+		<div id="main">
+			<div id="header">
+				<div id="buttons_account">
+					<button type="button" class="button_account" onclick="get_page('account', '')">Account</button>
+					<button type="button" class="button_account" onclick="get_page('logout', '')">Logout</button>
+				</div>
+				<h1 style="margin:0">Automation System</h1>
+				<h3 style="margin:0">Main Menu</h3>
+			</div>
+			<div id="content">
+				<div class="content_left">
+					<h2 style="margin:0 0 10px 0">Message Board</h2>
+					<div id="messages">
+						-- Cannot reach server -- <!-- default text -->
+					</div>
+				</div>
+				<div class="content_right">
+					<h2 style="margin:0 0 10px 0">Controls</h2>
+					<button type="button" class="button_mm" onclick="get_page('devices', '')">Devices</button>
+					<button type="button" class="button_mm" onclick="get_page('programs', '')">Programs</button>
+					<button type="button" class="button_mm" onclick="get_page('upload', '')">Upload</button>
+				</div>
+			</div>
+		</div>
+	
+	</body>
+
+</html>

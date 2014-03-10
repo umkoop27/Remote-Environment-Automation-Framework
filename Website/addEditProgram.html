@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+
+<html>
+
+	<head>
+	
+		<title></title> <!-- filled by load_edit_panel() -->
+		<link rel="stylesheet" type="text/css" href="style.css">
+		<script src="script.js"></script>
+
+	</head>
+	
+	<body onload="load_edit_panel()">
+	
+		<div id="loading_indicator">
+			<i>Loading... Please wait.</i>
+		</div>
+	
+		<div id="main">
+			<div id="header">
+				<button type="button" class="button_return" onclick="get_page('programs')">Programs</button>
+				<h1 style="margin:0">Edit Program</h1>
+				<h3 style="margin:0" id="program_name_heading"></h3> <!-- filled by load_edit_panel() -->
+			</div>
+			<div id="content" style="overflow:auto;padding:3%;background-color:aqua;margin-top:1%;border: 3px inset rgb(75,125,225);border-radius:25px;">
+				<button type="button" onclick="save_program_attempt_1()" style="width:100px;font-size:large;">Save</button>
+				<div style="padding:1%;text-align:left;font-size:large;">Available Devices:</div>
+				<div id="device_list" style="max-height:200px;overflow:auto;background-color:rgb(200,225,225);">
+					-- Cannot reach server -- <!-- default text -->
+				</div>
+				<br>
+				<div id="triggers_list" style="position:relative;">
+					<div style="padding:1%;text-align:left;font-size:large;">Currently Active <b>Triggers</b>:</div>
+					<div id="trigger_list" style="text-align:left;background-color:rgb(240,255,255);">
+						-- Cannot reach server -- <!-- default text -->
+					</div>
+				</div>
+				<div id="actions_list" style="position:relative;">
+					<div style="padding:1%;text-align:left;font-size:large;">Currently Active <b>Actions</b>:</div>
+					<div id="action_list" style="text-align:left;background-color:rgb(240,255,255);">
+						-- Cannot reach server -- <!-- default text -->
+					</div>
+				</div>
+				<br>
+				<button type="button" onclick="save_program_attempt_1()" style="width:100px;font-size:large;">Save</button>
+		</div>
+		
+		<div id="dark_bkgnd"></div>
+		
+		<div class="popup" id="popup_all_purpose">
+			<button type="button" class="button_return" id="button_popup_ap_back" onclick="popup_all_purpose_close()" style="display:none;">Cancel</button>
+			<h2 id="popup_title" style="margin:10px"></h2>
+			<div id="popup_message"></div>
+			<div id="popup_buttons"></div>
+		</div>
+	
+	</body>
+
+</html>
