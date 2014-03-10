@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+
+<html>
+
+	<head>
+	
+		<title>Login</title>
+		<link rel="stylesheet" type="text/css" href="style.css">
+		<script src="script.js"></script>
+
+	</head>
+	
+	<body>
+	
+		<div id="loading_indicator">
+			<i>Loading... Please wait.</i>
+		</div>
+	
+		<div id="main">
+			<div id="header">
+				<h1 style="margin:0">Automation System</h1>
+				<h3 style="margin:0">Login</h3>
+			</div>
+			<form name="login" action="/login" method="post">
+				<div style="overflow:auto;padding:10px 0;">
+					<label>Username:</label><input type="text" class="input_field" name="userName">
+					<label>Password:</label><input type="password" class="input_field" name="password">
+				</div>
+				<input type="submit" value="Login">
+			</form>
+		</div>
+	
+	</body>
+
+</html>
+
+<!--
+<HTML>
+<BODY>
+<FORM name="login" action="/login" method="post">
+Username: <input type="text" name="userName"><br>
+Password: <input type="password" name="password"><br>
+<input type="submit" value="Login">
+</FORM>
+</BODY
+</HTML>
+-->

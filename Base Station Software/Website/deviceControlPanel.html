@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+
+<html>
+
+	<head>
+	
+		<title></title> <!-- filled by load_control_panel() -->
+		<link rel="stylesheet" type="text/css" href="style.css">
+		<script src="script.js"></script>
+
+	</head>
+	
+	<body onload="load_control_panel()">
+	
+		<div id="loading_indicator">
+			<i>Loading... Please wait.</i>
+		</div>
+	
+		<div id="main">
+			<div id="header">
+				<button type="button" class="button_return" onclick="get_page('devices')">Devices</button>
+				<h1 style="margin:0">Control Panel</h1>
+				<h3 style="margin:0" id="device_name_heading"></h3> <!-- filled by load_control_panel() -->
+			</div>
+			<div id="content" style="padding:40px;text-align:left;font-size:large;margin-top:1%;background-color:aqua;border: 3px inset rgb(75,125,225);border-radius:25px;">
+				-- Cannot reach server -- <!-- default text -->
+			</div>
+		</div>
+	
+	</body>
+
+</html>

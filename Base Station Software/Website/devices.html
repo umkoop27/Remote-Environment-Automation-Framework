@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+
+<html>
+
+	<head>
+	
+		<title>Devices</title>
+		<link rel="stylesheet" type="text/css" href="style.css">
+		<script src="script.js"></script>
+		
+	</head>
+	
+	<body onload="http_post_request('device_list', 1, 1)">
+	
+		<div id="loading_indicator">
+			<i>Loading... Please wait.</i>
+		</div>
+	
+		<div id="main">
+			<div id="header">
+				<button type="button" class="button_return" onclick="get_page('index', '')">Home</button>
+				<div id="buttons_account">
+					<button type="button" class="button_account" onclick="get_page('account', '')">Account</button>
+					<button type="button" class="button_account" onclick="get_page('logout', '')">Logout</button>
+				</div>
+				<h1 style="margin:0">Devices</h1>
+			</div>
+			<div id="content" style="padding:3%;background-color:aqua;margin-top:1%;border: 3px inset rgb(75,125,225);border-radius:25px;">
+				<div style="overflow:hidden;margin-bottom:1%;">
+					<button type="button" onclick="popup_add_device_open()" style="float:right;">Add Device</button>
+				</div>
+				<div id="device_list" style="background-color:rgb(240,255,255);">
+					-- Cannot reach server -- <!-- default text -->
+				</div>
+			</div>
+		</div>
+		
+		<div id="dark_bkgnd"></div>
+		
+		<div class="popup" id="popup_add_device">
+		
+			<button type="button" class="button_return" id="button_popup_add_back" onclick="popup_add_device_close()">Back</button>
+			<h2 style="margin:10px">Add Device</h2>
+			
+			<div id="popup_add_1_start">
+				When you are ready to begin the process of adding a device, press the button below.<br><br>
+				<!--
+				To add a device to the system,<br>
+				please do the following:<br>
+				<ol style="margin-left:55px;text-align:left;">
+					<li>Turn on the device</li>
+					<li>Locate the button on the device</li>
+					<li>Press the button below</li>
+				</ol>
+				-->
+				<button type="button" onclick="popup_add_stage(2)">Add Device</button>
+			</div>
+			
+			<div id="popup_add_2_wait">
+				Please press the button on the device<br>
+				to initiate a connection.<br>
+				<br>
+				Time remaining: <div id="countdown"></div>
+				<br>
+				<button type="button" onclick="popup_add_stage(1)">Cancel</button>
+			</div>
+			
+			<div id="popup_add_3_timeout">
+				Connection was unsuccesful.<br><br>
+				<button type="button" onclick="popup_add_stage(1)">Cancel</button>
+				<button type="button" onclick="popup_add_stage(2)">Try Again</button>
+			</div>
+			
+			<div id="popup_add_4_signal">
+				Connection established!<br>
+				<div id="device_data">Device Type: Unknown<br>Device ID: Unknown</div> <!-- default text -->
+				Please name the device:<br>
+				<br>
+				<input type="text" id="desired_name" style="width:75%;"><br>
+				<div id="add_device_error"></div>
+				<br>
+				<button type="button" onclick="popup_add_stage(1)">Cancel</button>
+				<button type="button" onclick="add_device_attempt()">Done</button>
+			</div>
+			
+		</div>
+		
+		<div class="popup" id="popup_remove_device">
+			<h2 style="margin:10px">Remove Device</h2>
+			<div id="message_remove">
+				Are you sure you want to remove<br>
+				device [insert device name]?<br>
+			</div>
+			<button type="button" id="button_remove_device" onclick="">Remove</button>
+			<button type="button" onclick="popup_remove_device_close()">Cancel</button>
+		</div>
+	
+	</body>
+
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+
+<html>
+
+	<head>
+	
+		<title>Programs</title>
+		<link rel="stylesheet" type="text/css" href="style.css">
+		<script src="script.js"></script>
+		
+	</head>
+	
+	<body onload="http_post_request('service_list', 1, 1)">
+	
+		<div id="loading_indicator">
+			<i>Loading... Please wait.</i>
+		</div>
+	
+		<div id="main">
+			<div id="header">
+				<button type="button" class="button_return" onclick="get_page('index', '')">Home</button>
+				<div id="buttons_account">
+					<button type="button" class="button_account" onclick="get_page('account', '')">Account</button>
+					<button type="button" class="button_account" onclick="get_page('logout', '')">Logout</button>
+				</div>
+				<h1 style="margin:0">Programs</h1>
+			</div>
+			<div id="content" style="padding:3%;background-color:aqua;margin-top:1%;border: 3px inset rgb(75,125,225);border-radius:25px;">
+				<div style="overflow:hidden;margin-bottom:1%;">
+					<button type="button" onclick="get_page('addEditProgram', '')" style="float:right;">Add Program</button>
+				</div>
+				<div id="program_list" style="background-color:rgb(240,255,255);">
+					-- Cannot reach server -- <!-- default text -->
+				</div>
+			</div>
+		</div>
+		
+		<div id="dark_bkgnd"></div>
+		
+		<div class="popup" id="popup_view_program">
+		
+			<button type="button" class="button_return" id="button_popup_view_back" onclick="popup_view_close()">Back</button>
+			<h2 style="margin:10px">View Program</h2>
+			
+			<div id="popup_view_content" style="padding:10px 20px 0 20px; text-align:left;"></div>
+			
+			<button type="button" id="button_popup_view_edit" onclick="" style="margin-bottom:10px">Edit</button>
+			
+		</div>
+		
+		<div class="popup" id="popup_remove_program">
+			<h2 style="margin:10px">Remove Program</h2>
+			<div id="message_remove">
+				Are you sure you want to remove<br>
+				program [insert program name]?<br>
+			</div>
+			<button type="button" id="button_remove_program" onclick="">Remove</button>
+			<button type="button" onclick="popup_remove_program_close()">Cancel</button>
+		</div>
+	
+	</body>
+
+</html>
