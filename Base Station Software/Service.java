@@ -407,6 +407,11 @@ public class Service
 								throw new Exception("Error creating service");
 							}
 						}
+						else 
+						{
+							break;
+						}
+
 						startIndex = endBeforeIndex + 1;								//the start index for the next term is right after the operator
 					}
 				}

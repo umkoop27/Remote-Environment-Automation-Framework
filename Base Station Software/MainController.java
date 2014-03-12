@@ -136,7 +136,7 @@ public class MainController implements TriggerHandler
 		peripherals = new ArrayList<Peripheral>();
 		triggers = new ArrayList<TriggerLogicBlock>();
 		triggerQueue = new LinkedBlockingQueue<TriggerRequest>();
-		mAdapter = new NetworkAdapter("/dev/ttyUSB0", 9600, peripherals, this);
+		mAdapter = new NetworkAdapter("/dev/ttyUSB0", 19200, peripherals, this);
 	}
 	
 	/**
@@ -280,7 +280,7 @@ public class MainController implements TriggerHandler
 	 */
 	public synchronized String getServiceList()
 	{
-		String result = "";
+		String result = "no_services";
 		if(services.size() > 0)
 		{
 			result = services.get(0).getName();
