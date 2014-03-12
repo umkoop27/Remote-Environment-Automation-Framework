@@ -378,11 +378,16 @@ public class WebRequestHandler implements HttpHandler
 							}
 							else if(command.equals("get_status"))
 							{
-								if(splitLine.length == 3 && !splitLine[1].equals("") && !splitLine[2].equals(""))
+								if(splitLine.length >= 3 && !splitLine[1].equals("") && !splitLine[2].equals(""))
 								{
 									String peripheralName = splitLine[1];
-									String statusName = splitLine[2];
-									response = mainController.getStatus(peripheralName, statusName);
+									for(int splitLineIndex = 2; splitLineIndex < splitLine.length; splitLineIndex++)
+									{
+										String statusName = splitLine[splitLineIndex];
+										response = response + mainController.getStatus(peripheralName, statusName);
+										if(splitLineIndex < splitLine.length - 1)
+											response = response + "|";
+									}
 								}
 								else 
 								{
