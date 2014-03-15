@@ -7,8 +7,8 @@
 
 // Configurable Variables
  
-var server_mode = true; // set to false if server is not present (for testing only)
-var add_device_countdown = 30; // seconds
+var server_mode = false; // set to false if server is not present (for testing only)
+var add_device_countdown = 20; // seconds
 
 // Non-Configurable Variables
 
@@ -23,6 +23,8 @@ function http_post_request(str_request, async, misc)
 	// server_mode == false
 	var index;
 	var half_time_ms;
+	var status_names;
+	var fake_statuses;
 	
 	if (!server_mode) // essentially skips HTTP communications (for testing only)
 	{
@@ -80,7 +82,13 @@ function http_post_request(str_request, async, misc)
 				confirm_do_action("action_complete");
 				break;
 			case "get_status":
-				load_status((str_request.split("|"))[2], "Lookin' good!");
+				status_names = (str_request.split("|")).slice(2);
+				fake_statuses = "invalid_status";
+				for (var i = 1; i < status_names.length; i++)
+				{
+					fake_statuses = fake_statuses + "|Lookin' good!"
+				}
+				load_status(status_names, fake_statuses);
 				break;
 			case "edit_user_name":
 				confirm_edit_username("name_edited");
@@ -165,7 +173,7 @@ function http_post_request(str_request, async, misc)
 					confirm_configure_device(str_response); break;
 					
 				case "get_status":                                    // get status variable from device (*)
-					load_status((str_request.split("|"))[2], str_response); break;
+					load_status((str_request.split("|")).slice(2), str_response); break;
 					
 				case "edit_device_name":                              // edit device name
 					confirm_edit_device_name(str_response); break;
@@ -289,16 +297,15 @@ function clean_whitespace(node)
 function indeces_of(str, sym)
 {
 	var indeces = new Array();
-	var temp = str.indexOf(sym);
+	var index = str.indexOf(sym);
 	var offset = 0;
-	var remaining;
-	while (temp != -1)
+	var remaining = str;
+	while (index != -1)
 	{
-		temp = temp + offset;
-		indeces.push(temp);
-		remaining = str.substring(temp + 1);
-		offset = offset + temp + 1;
-		temp = remaining.indexOf(sym);
+		indeces.push(index + offset);
+		offset = index + offset + 1;
+		remaining = remaining.substring(index + 1);
+		index = remaining.indexOf(sym);
 	}
 	return indeces;
 }
@@ -667,7 +674,7 @@ function load_device_info(xml_string)
 	// display statuses (function load_status replaces the text in the spans)
 	if (status_names.length > 0)
 	{
-		html = html + "<b>Statuses:</b><br>"
+		html = html + "<b>Statuses:</b><br><br>"
 		for (i = 0; i < status_names.length; i++)
 		{
 			html = html + status_names[i] + ": <span id='" + status_names[i] + "'>-- Cannot reach server --</span><br>";
@@ -732,21 +739,38 @@ function load_device_info(xml_string)
 	document.getElementById("content").innerHTML = html;
 	
 	// REQUEST & LOAD STATUSES
+	request = "get_status|" + device_name;
 	for (i = 0; i < num_statuses; i++)
 	{
-		request = "get_status|" + device_name + "|" + status_names[i];
-		http_post_request(request, false, ""); // synchronously request statuses
+		request = request + "|" + status_names[i];
 	}
+	http_post_request(request, true, "");
 }
 
-function load_status(status_name, status)
+function load_status(status_names, status_string)
 {
-	if (status == "invalid_name" || status == "invalid_status" || status == "invalid_num_inputs")
+	var statuses;
+	var errors;
+	var s;
+
+	statuses = status_string.split("|");
+	errors = "";
+	
+	for (var i = 0; i < status_names.length; i++)
 	{
-		alert("Status: " + status);
-		return;
+		s = statuses[i];
+		if (s == "invalid_name" || s == "invalid_status" || s == "invalid_num_inputs")
+		{
+			errors = errors + "Error with status '" + status_names[i] + "'. Error = " + s + "\n";
+			document.getElementById(status_names[i]).innerHTML = "-- error --<br>";
+		}
+		else document.getElementById(status_names[i]).innerHTML = s + "<br>";
 	}
-	document.getElementById(status_name).innerHTML = status + "<br>";
+	
+	if (errors != "")
+	{
+		alert(errors);
+	}
 }
 
 function do_action_attempt(input, type, device_name, func) // purpose: grab and check user input
@@ -1471,7 +1495,22 @@ function remove_action(act_num)
 	action = actions[act_num];
 	
 	// remove from pathway
-	action.fanin.fanout = null;
+	fanin = action.fanin;
+	if (fanin.type == "t") // fanin is a trigger
+	{
+		// search for the action in the trigger's fanout array
+		for (var i = 0; i < fanin.fanout.length; i++)
+		{
+			if (fanin.fanout[i].type == "a" && actions_match(fanin.fanout[i], action))
+			{
+				fanin.fanout.splice(i, 1); // remove the action from the trigger's fanout array
+			}
+		}
+	}
+	else // fanin is not a trigger
+	{
+		fanin.fanout = null;
+	}
 	
 	// remove from list
 	actions.splice(act_num, 1);
@@ -1559,8 +1598,10 @@ function popup_add_trig_act()
 	var num_triggers, num_actions;
 	var html_title, html_message, html_buttons;
 	
-	num_triggers = dev.desc.getElementsByTagName("triggers")[0].childNodes.length;
-	num_actions = dev.desc.getElementsByTagName("actions")[0].childNodes.length;
+	if (dev.desc.getElementsByTagName("triggers")[0] != undefined) num_triggers = dev.desc.getElementsByTagName("triggers")[0].childNodes.length;
+	else num_triggers = 0;
+	if (dev.desc.getElementsByTagName("actions")[0] != undefined) num_actions = dev.desc.getElementsByTagName("actions")[0].childNodes.length;
+	else num_actions = 0;
 	
 	html_title = "Add " + dev.name;
 	html_message = "";
@@ -2032,6 +2073,7 @@ function tree(trigs, fanout)
 	var pos_ands, pos_ors;
 	var pos_ands_ext, pos_ors_ext;
 	var temp_str, temp_ptr, num_op_bracks, num_cl_bracks;
+	var num_pieces;
 	var start, end;
 
 	// END CASE
@@ -2089,17 +2131,19 @@ function tree(trigs, fanout)
 		
 		if (pos_ands_ext.length > 0) // external & symbols are indeed present
 		{
+			num_pieces = pos_ands_ext.length + 1;
+		
 			// first piece
 			start = 0;               // included
 			end =   pos_ands_ext[0]; // up to but not included
 			trigs_new.push(trigs.substring(start, end));
 			
-			for (var j = 0; j < pos_ands_ext.length-1; j++)
+			for (var j = 2; j <= num_pieces-1; j++) // from the second piece (j=2) to the second last piece (j=num_pieces-1)
 			{
-					// middle piece(s)
-					start = pos_ands_ext[j] + 1; // included
-					end =   pos_ands_ext[j+1]        // up to but not included
-					trigs_new.push(trigs.substring(start, end));
+				// middle piece(s)
+				start = pos_ands_ext[j-2] + 1; // included
+				end =   pos_ands_ext[j-1];     // up to but not included
+				trigs_new.push(trigs.substring(start, end));
 			}
 			
 			// last piece
@@ -2115,6 +2159,7 @@ function tree(trigs, fanout)
 			for (var k = 0; k < trigs_new.length; k++)
 			{
 				temp_str = trigs_new[k];
+				temp_str = temp_str.substring(1, temp_str.length-1); // remove brackets
 				temp_ptr = tree(temp_str, node);
 				if (temp_ptr == null) return null; // error
 				else node.fanin.push(temp_ptr); // recursive call; acquire children
@@ -2123,7 +2168,8 @@ function tree(trigs, fanout)
 			return node;
 		}
 	}
-	else // no & symbols were found (NOTE: It is still possible that some + symbols are NOT external)
+	
+	if (pos_ors.length > 0) // + symbols were found (NOTE: It is still possible that some + symbols are NOT external)
 	{
 		pos_ors_ext = new Array(); // positions of all + symbols that are NOT inside any brackets
 		
@@ -2142,19 +2188,21 @@ function tree(trigs, fanout)
 			if (num_op_bracks == num_cl_bracks) pos_ors_ext.push(pos_ors[i]);
 		}
 		
-		// since no & symbols were found, therefore external + symbols must be present
+		// since execution has passed the & phase, external + symbols must be present
+		
+		num_pieces = pos_ors_ext.length + 1;
 		
 		// first piece
 		start = 0;              // included
 		end =   pos_ors_ext[0]; // up to but not included
 		trigs_new.push(trigs.substring(start, end));
 		
-		for (j = 0; j < pos_ors_ext.length-1; j++)
+		for (var j = 2; j <= num_pieces-1; j++) // from the second piece (j=2) to the second last piece (j=num_pieces-1)
 		{
-				// middle piece(s)
-				start = pos_ors_ext[j] + 1; // included
-				end =   pos_ors_ext[j+1]        // up to but not included
-				trigs_new.push(trigs.substring(start, end));
+			// middle piece(s)
+			start = pos_ors_ext[j-2] + 1; // included
+			end =   pos_ors_ext[j-1];     // up to but not included
+			trigs_new.push(trigs.substring(start, end));
 		}
 			
 		// last piece
@@ -2170,6 +2218,7 @@ function tree(trigs, fanout)
 		for (k = 0; k < trigs_new.length; k++)
 		{
 			temp_str = trigs_new[k];
+			temp_str = temp_str.substring(1, temp_str.length-1); // remove brackets
 			temp_ptr = tree(temp_str, node);
 			if (temp_ptr == null) return null; // error
 			else node.fanin.push(temp_ptr); // recursive call; acquire children
@@ -2555,7 +2604,7 @@ function triggers_match(trig1, trig2)
 	
 	if (trig1.args != undefined && trig2.args != undefined)
 	{
-		for (var i = 0; i < trig1.args; i++)
+		for (var i = 0; i < trig1.args.length; i++)
 		{
 			if (trig1.args[i] != trig2.args[i]) return false;
 		}
