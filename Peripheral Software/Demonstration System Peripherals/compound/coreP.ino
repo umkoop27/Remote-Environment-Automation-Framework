@@ -62,6 +62,9 @@ any acknowledgements even if the cpu is in the middle of another task
 */
 
 ISR( TIMER2_OVF_vect ) { 
+  
+  //Serial.println("interrupt");
+  //delay(15);
   unsigned char sreg = SREG;
   cli();
   sleep_disable();
@@ -82,7 +85,8 @@ inputs periodically without being told to do so by the base station.
 */
 
 void timerSleep(){
-  
+  Serial.println("sleep");
+  delay(15);
   ASSR = 1<<AS2; // turn on 32kHz crystal oscillator
   TIMSK2 = 1<<TOIE2; // enable TC2 overflow interrupt
   TCCR2B = 0x04; // .5 second interrupts
@@ -92,6 +96,8 @@ void timerSleep(){
   sleep_enable();
   sleep_cpu();
   sleep_disable();
+  Serial.println("wakeup");
+  delay(15);
 }
 
 

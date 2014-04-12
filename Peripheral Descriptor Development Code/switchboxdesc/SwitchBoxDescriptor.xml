@@ -25,20 +25,6 @@
 		</trigger>
 	</triggers>
 	
-	<actions>
-		<action id="SET_ENABLED">
-			<name>Enable/Disable</name>
-			<function id="setEnabled">
-				<argument type="Boolean" id="isEnabled">Status</argument>
-			</function>
-		</action>
-	</actions>
-	
-	<statuses>
-		<status id="DISPLAY_SWITCHES">
-			<name>Display Switches</name>
-		</status>		
-	</statuses>
 	
 	<!-- Define local and remote functions -->
 	

@@ -15,15 +15,16 @@ void periphInit(){
 	pinMode(SW_L, INPUT_PULLUP);
 	pinMode(SW_M, INPUT_PULLUP);
 	pinMode(SW_R, INPUT_PULLUP);
-        monitorE=1; //enable the switch box
+       // monitorE=1; //enable the switch box
 }
 
 
 #ifdef TIME_SLEEP
 
 void monitor(){
-    TIMSK2 = 0<<TOIE2; // disable TC2 overflow interrupt
-    if(monitorE&&lastSentTimer==0){ //only checks the next switch/dial if the current one has not changed
+    Serial.println("m");
+    delay(5);
+    if(lastSentTimer==0){ //only checks the next switch/dial if the current one has not changed
       if(!checkSwitchLeft()){
         if(!checkSwitchRight()){
           if(!checkSwitchMid()){
@@ -33,7 +34,6 @@ void monitor(){
       }
     }
     
-    TIMSK2=1<<TOIE2;
 }
 #endif
 
@@ -45,19 +45,19 @@ void monitor(){
 
 */
 int checkDial(){
- int val = analogRead(DIAL); 
+ int val = analogRead(DIAL)/4; 
  
  int result=0;
  int diff = val-dialValue;
-   delay(100);
+  // delay(100);
  
  if((diff>=0 && diff>5)|| (diff<0 && diff<-5)) {  
    dialValue = val;
-   //sendResult(MON_DIAL, 1, data);
    dialChanged2Nexus(dialValue);
-   //Serial.println(dialValue);
-   //delay(100);
+
    result=1;
+   Serial.println(dialValue);
+   delay(5);
   }
   return result;
 }
@@ -76,6 +76,8 @@ int checkSwitchLeft(){
    switchLeftValue = val;
    switch1ChangedToNexus(val);
    result=1;
+   Serial.println("L");
+   delay(5);
   }
   return result;
 }
@@ -93,6 +95,8 @@ int checkSwitchMid(){
    switchMidValue = val;
    switch2ChangedToNexus(val);
    result=1;
+   Serial.println("M");
+   delay(5);
   }
   return result;
 }
@@ -110,6 +114,8 @@ int checkSwitchRight(){
    switchRightValue = val;
    switch3ChangedToNexus(val);
    result=1;
+   Serial.println("R");
+   delay(5);
   }
   return result;
 }
@@ -124,19 +130,19 @@ int checkSwitchRight(){
 
 void setEnabled(int8_t set){
   
-  if(set){
-    Serial.println("enable");
-    delay(100);
-    monitorE =1;
-    switchMidValue = !digitalRead(SW_M);
-    switchLeftValue = !digitalRead(SW_L);
-    switchRightValue = !digitalRead(SW_R);
-    dialValue = analogRead(DIAL); 
-
-  }
-    
-  else
-    monitorE =0;
+//  if(set){
+//    Serial.println("enable");
+//    delay(100);
+//    monitorE =1;
+//    switchMidValue = !digitalRead(SW_M);
+//    switchLeftValue = !digitalRead(SW_L);
+//    switchRightValue = !digitalRead(SW_R);
+//    dialValue = analogRead(DIAL); 
+//
+//  }
+//    
+//  else
+//    monitorE =0;
   
 }
 

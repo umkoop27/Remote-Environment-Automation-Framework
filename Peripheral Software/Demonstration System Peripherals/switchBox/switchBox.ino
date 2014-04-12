@@ -106,6 +106,7 @@ void loop()
             
    #ifdef TIME_SLEEP //used for monitoring applications
    timerSleep();
+   Serial.println("w");
    #endif
    
    #ifndef TIME_SLEEP

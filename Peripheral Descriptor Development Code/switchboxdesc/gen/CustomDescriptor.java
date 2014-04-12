@@ -53,11 +53,9 @@ public abstract class CustomDescriptor implements PeripheralDescriptor {
 	
 	private static final String[] actionStrings = new String[]
 		{
-			
-			"Enable/Disable" 
+			 
 		};
 	
-	protected static final int SET_ENABLED = 0;
 	
 	////////////////
 	// Callback IDs
@@ -131,10 +129,6 @@ public abstract class CustomDescriptor implements PeripheralDescriptor {
 		String outputStatus = "";
 		switch (statusString) {
 		
-		case "Display Switches":
-			outputStatus = getDisplaySwitchesStatus();
-			break;
-		
 
 		default:
 			break;
@@ -159,13 +153,7 @@ public abstract class CustomDescriptor implements PeripheralDescriptor {
 			}
 		}
 		
-		
-		if (SET_ENABLED == actionIndex)
-		{
 			
-			String actionArgument0 = arguments[0];
-			setEnabledAction(actionArgument0);
-		} 	
 		
 		
 		
@@ -386,18 +374,11 @@ public abstract class CustomDescriptor implements PeripheralDescriptor {
 	// Action Functions 
 	/////////////////////
 	
-	
-	public abstract void setEnabledAction(String isEnabled);
 		
 	
 	/////////////////////
 	// Status Functions
 	/////////////////////
-	
-	/**
-	 * @return a <code>String</code> that describes the status field 'Display Switches'.
-	 */
-	public abstract String getDisplaySwitchesStatus();
 	
 	
 		
@@ -470,7 +451,7 @@ public abstract class CustomDescriptor implements PeripheralDescriptor {
 	/**
 	 * Test that <code>arguments</code> is a valid set of arguments for the action
 	 * <code>actionID</code>.
-	 * @param actionID an <code>int</code> representing one of: <code>SET_ENABLED</code>.
+	 * @param actionID an <code>int</code> representing one of: .
     
 	 * @param arguments the ',' separated <code>String</code> arguments that are being tested.
 	 * @return <code>true</code> if the combination of <code>actionID</code> and 

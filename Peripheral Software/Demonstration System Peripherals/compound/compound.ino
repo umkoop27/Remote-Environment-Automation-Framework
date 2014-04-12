@@ -85,6 +85,11 @@ void setup()
   TCCR2B = 0x04; // .5 s interrupts
   #endif
   
+  #ifdef TIME_SLEEP //set up timeout interrupt
+  ASSR = 1<<AS2; // turn on 32kHz crystal oscillator
+  TCCR2B = 0x04; // .5 s interrupts
+  #endif
+  
   periphInit();
   calcDecryptionKey();
 }

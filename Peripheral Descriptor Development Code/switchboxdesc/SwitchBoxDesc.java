@@ -7,32 +7,17 @@
     {
 
 		@Override
-		public void setEnabledAction(String isEnabled) 
-		{
-			boolean enabled = Boolean.valueOf(isEnabled);
-			if (enabled) {
-				setEnabledRemote((byte)1);
-			} else {
-				setEnabledRemote((byte)0);
-			}
-			
-		}
-
-		@Override
-		public String getDisplaySwitchesStatus() 
-		{
-			return "hello world";
-		}
-
-		@Override
 		public void switch1ChangedToCallBack(Byte switchState)
 		{
 			if (switchState < 1)
 			{
-				cancelTrigger(SWITCH_1, switchState.toString());
-			} else if (switchState > 0)
+				cancelTrigger(SWITCH_1, "true");
+				didTrigger(SWITCH_1, "false");
+			} 
+			else if (switchState > 0)
 			{
-				didTrigger(SWITCH_1, switchState.toString());
+				cancelTrigger(SWITCH_1, "false");
+				didTrigger(SWITCH_1, "true");
 			}			
 		}
 
@@ -41,11 +26,13 @@
 		{
 			if (switchState < 1)
 			{
-				cancelTrigger(SWITCH_2, switchState.toString());
+				cancelTrigger(SWITCH_2, "true");
+				didTrigger(SWITCH_2, "false");
 			} else if (switchState > 0)
 			{
-				didTrigger(SWITCH_2, switchState.toString());
-			}		
+				cancelTrigger(SWITCH_2, "false");
+				didTrigger(SWITCH_2, "true");
+			}	
 		}
 
 		@Override
@@ -53,10 +40,12 @@
 		{
 			if (switchState < 1)
 			{
-				cancelTrigger(SWITCH_3, switchState.toString());
+				cancelTrigger(SWITCH_3, "true");
+				didTrigger(SWITCH_3, "false");
 			} else if (switchState > 0)
 			{
-				didTrigger(SWITCH_3, switchState.toString());
+				cancelTrigger(SWITCH_3, "false");
+				didTrigger(SWITCH_3, "true");
 			}		
 		}
 
